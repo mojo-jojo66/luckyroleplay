@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="images/logolucky.png"/>
+  <title>Rejestracja - Lucky Roleplay</title>
+</head>
+<body>
+  <div class="nav">
+    <ul>
+      <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
+      <li><a class="navs podanie" href="podania.html">Podania</a></li>
+      <li class="login-nav">
+        <div class="user-menu">
+          <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
+          <div class="user-dropdown" id="userDropdown"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <section class="logowanie">
+    <form class="stylpodania login-box" id="registerForm">
+      <h2 style="color: #fff; text-align: center; margin-bottom: 32px;">Zarejestruj się</h2>
+      <label for="nick" style="color: #fff; display: block; margin-bottom: 6px; text-align: left;">Nazwa użytkownika:</label>
+      <input type="text" id="nick" name="nick" required>
+      <label for="discord" style="color: #fff; display: block; margin: 18px 0 6px 0; text-align: left;">Discord ID:</label>
+      <input type="text" id="discord" name="discord" required>
+      <label for="password" style="color: #fff; display: block; margin: 18px 0 6px 0; text-align: left;">Hasło:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit" style="margin-top: 24px;">Zarejestruj się</button>
+      <p id="registerError" style="color:#ff4444; display:none; margin-top:10px;"></p>
+      <p style="margin-top:18px; color:#fff; text-align:center;">
+        Masz już konto?
+        <a href="login.html" style="color:#7ecfff; text-decoration:underline;">Zaloguj się!</a>
+      </p>
+    </form>
+  </section>
+</body>
+</html>

@@ -5,20 +5,43 @@
   <meta name="author" content="mojo jojo"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="logolucky.png"/>
+  <link rel="icon" href="images/logolucky.png"/>
   <title>Lucky Roleplay</title>
 </head>
 <body>
   <div class="nav">
   <ul>
-    <li><a class="navs" href="index.html"><img class="dom" src="home.png"/></a></li>
+    <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
     <li><a class="navs podanie" href="podania.html">Podania</a></li>
+    <li class="login-nav">
+  <div class="user-menu">
+    <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
+    <div class="user-dropdown" id="userDropdown">
+      <button onclick="window.location.href='login.html'">Zaloguj się</button>
+    </div>
+  </div>
+</li>
   </ul>
   </div>
   <section class="stronadomowa">
-    <img id="logolucky" src="logolucky.png">
+    <img id="logolucky" src="images/logolucky.png">
     <h1>Witaj na Lucky Roleplay!</h1>
     <p>Lucky Roleplay to serwer gier, który oferuje unikalne doświadczenia w świecie GTA V. Dołącz do nas i stań się częścią naszej społeczności!</p>
-    <a href="https://discord.gg/luckyroleplay" id="stronadomowa" target="_blank"><img src="discord.png">Dołacz na naszego Discorda</a>
-</body>
+    <a href="https://discord.gg/luckyroleplay" id="stronadomowa" target="_blank"><img src="images/discord.png">Dołacz na naszego Discorda</a>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const menu = document.querySelector('.user-menu');
+  const avatar = document.getElementById('userAvatar');
+  if (avatar && menu) {
+    avatar.onclick = function(e) {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    };
+    document.addEventListener('click', function() {
+      menu.classList.remove('open');
+    });
+  }
+});
+</script>
+  </body>
 </html>

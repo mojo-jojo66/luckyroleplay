@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="images/logolucky.png"/>
+  <title>Logowanie - Lucky Roleplay</title>
+</head>
+<body>
+  <div class="nav">
+    <ul>
+      <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
+      <li><a class="navs podanie" href="podania.html">Podania</a></li>
+      <li class="login-nav">
+        <div class="user-menu">
+          <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
+          <div class="user-dropdown" id="userDropdown"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <section class="logowanie">
+    <form class="stylpodania login-box" id="loginForm">
+      <h2>Zaloguj się</h2>
+      <label for="nick">Nazwa użytkownika:</label>
+      <input type="text" id="nick" name="nick" required>
+      <label for="password">Hasło:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Zaloguj się</button>
+      <p id="loginError" class="error-msg"></p>
+      <div class="login-link">
+        Nie masz konta?
+        <a href="register.html">Zarejestruj się!</a>
+      </div>
+    </form>
+  </section>
+</body>
+</html>

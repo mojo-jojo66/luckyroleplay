@@ -5,50 +5,73 @@
   <meta name="author" content="mojo jojo"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="logolucky.png"/>
+  <link rel="icon" href="images/logolucky.png"/>
   <title>Lucky Roleplay - Podania</title>
 </head>
 <body>
   <div class="nav">
   <ul>
-    <li><a class="navs" href="index.html"><img class="dom" src="home.png"/></a></li>
+    <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
     <li><a class="navs podanie" href="podania.html">Podania</a></li>
+        <li class="login-nav">
+  <div class="user-menu">
+    <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
+    <div class="user-dropdown" id="userDropdown">
+      <button onclick="window.location.href='login.html'">Zaloguj się</button>
+    </div>
+  </div>
+</li>
   </ul>
   </div>
-<ul class="stylpodania">
-    <li>
-        <div class="top-row">
-            <img src="lspd.png"/>
-            <h1>Los Santos Police Department</h1>
-        </div>
-        <p>Dołącz do Los Santos Police Department, aby służyć i chronić społeczność. Wypełnij poniższy formularz, aby złożyć podanie.</p>
-        <a class="aplikuj" href="">Złóż podanie</a>
-    </li>
-    <li>
-        <div class="top-row">
-            <img src="ems.jpg"/>
-            <h1>Emergency Medical Services</h1>
-        </div>
-        <p>Pracuj jako ratownik medyczny w Los Santos. Wypełnij formularz, aby dołączyć do Emergency Medical Services.</p>
-        <a class="aplikuj" href="">Złóż podanie</a>
-    </li>
-    <li>
-        <div class="top-row">
-            <img src="lsc.jpg"/>
-            <h1>Los Santos Customs</h1>
-        </div>
-        <p>Pracuj w Los Santos Customs, aby naprawiać i modyfikować pojazdy. Wypełnij formularz, aby złożyć podanie.</p>
-        <a class="aplikuj" href="">Złóż podanie</a>
-    </li>
-    <li>
-        <div class="top-row">
-            <img src="staff.png"/>
-            <h1>Administracja</h1>
-        </div>
-        <p>Dołącz do zespołu administracji Lucky Roleplay. Wypełnij formularz, aby złożyć podanie.</p>
-        <a class="aplikuj administracja" href="">Złóż podanie</a>
-    </li>
-</ul>
+  <div class="podania-grid">
+  <div class="podanie-box lspd">
+    <div class="top-row">
+      <img src="images/lspd.png"/>
+      <h1>Los Santos Police Department</h1>
+    </div>
+    <p>Dołącz do Los Santos Police Department, aby służyć i chronić społeczność. Wypełnij poniższy formularz, aby złożyć podanie.</p>
+    <a class="aplikuj" href="">Złóż podanie</a>
+  </div>
+  <div class="podanie-box ems">
+    <div class="top-row">
+      <img src="images/ems.jpg"/>
+      <h1>Emergency Medical Services</h1>
+    </div>
+    <p>Pracuj jako ratownik medyczny w Los Santos. Wypełnij formularz, aby dołączyć do Emergency Medical Services.</p>
+    <a class="aplikuj" href="">Złóż podanie</a>
+  </div>
+  <div class="podanie-box lsc">
+    <div class="top-row">
+      <img src="images/lsc.jpg"/>
+      <h1>Los Santos Customs</h1>
+    </div>
+    <p>Pracuj w Los Santos Customs, aby naprawiać i modyfikować pojazdy. Wypełnij formularz, aby złożyć podanie.</p>
+    <a class="aplikuj" href="">Złóż podanie</a>
+  </div>
+  <div class="podanie-box administration">
+    <div class="top-row">
+      <img src="images/staff.png"/>
+      <h1>Administracja Serwera</h1>
+    </div>
+    <p>Dołącz do zespołu administracji Lucky Roleplay. Wypełnij formularz, aby złożyć podanie.</p>
+    <a class="aplikuj administracja" href="">Złóż podanie</a>
+  </div>
+</div>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const menu = document.querySelector('.user-menu');
+  const avatar = document.getElementById('userAvatar');
+  if (avatar && menu) {
+    avatar.onclick = function(e) {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+    };
+    document.addEventListener('click', function() {
+      menu.classList.remove('open');
+    });
+  }
+});
+</script>
 </body>
 
 </html>
