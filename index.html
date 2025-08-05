@@ -6,42 +6,242 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="images/logolucky.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Lucky Roleplay</title>
 </head>
 <body>
-  <div class="nav">
-  <ul>
-    <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
-    <li><a class="navs podanie" href="podania.html">Podania</a></li>
-    <li class="login-nav">
-  <div class="user-menu">
-    <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
-    <div class="user-dropdown" id="userDropdown">
-      <button onclick="window.location.href='login.html'">Zaloguj się</button>
+  <!-- Modern Navigation Bar -->
+  <nav class="modern-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="images/logolucky.png" alt="Lucky RP Logo" class="nav-logo">
+        <span class="brand-text">Lucky<span class="brand-accent">RP</span></span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">
+          <i class="fas fa-home"></i>
+          <span>Strona główna</span>
+        </a>
+        <a href="regulamin.html" class="nav-link">
+          <i class="fas fa-scroll"></i>
+          <span>Regulamin</span>
+        </a>
+        <a href="podania.html" class="nav-link">
+          <i class="fas fa-file-alt"></i>
+          <span>Podania</span>
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="user-menu modern-user-menu">
+          <div class="user-avatar-container">
+            <img src="images/user-icon.png" alt="Profil" class="user-avatar modern-avatar" id="userAvatar">
+            <div class="status-indicator"></div>
+          </div>
+          <div class="user-dropdown modern-dropdown" id="userDropdown">
+            <button onclick="window.location.href='login.html'">
+              <i class="fas fa-sign-in-alt"></i>
+              Zaloguj się
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-  </div>
-</li>
-  </ul>
-  </div>
-  <section class="stronadomowa">
-    <img id="logolucky" src="images/logolucky.png">
-    <h1>Witaj na Lucky Roleplay!</h1>
-    <p>Lucky Roleplay to serwer gier, który oferuje unikalne doświadczenia w świecie GTA V. Dołącz do nas i stań się częścią naszej społeczności!</p>
-    <a href="https://discord.gg/luckyroleplay" id="stronadomowa" target="_blank"><img src="images/discord.png">Dołacz na naszego Discorda</a>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const menu = document.querySelector('.user-menu');
-  const avatar = document.getElementById('userAvatar');
-  if (avatar && menu) {
-    avatar.onclick = function(e) {
-      e.stopPropagation();
-      menu.classList.toggle('open');
-    };
-    document.addEventListener('click', function() {
-      menu.classList.remove('open');
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-logo-container">
+        <img src="images/logolucky.png" alt="Lucky Roleplay" class="hero-logo">
+        <div class="logo-glow"></div>
+      </div>
+      
+      <div class="hero-text">
+        <h1 class="hero-title">
+          Witaj na <span class="title-highlight">Lucky Roleplay</span>
+        </h1>
+        <p class="hero-description">
+          Odkryj najlepsze doświadczenia roleplay w świecie GTA V. 
+          Dołącz do naszej rosnącej społeczności i stwórz swoją własną historię!
+        </p>
+      </div>
+      
+      <div class="hero-actions">
+        <a href="https://discord.gg/luckyroleplay" class="cta-button primary" target="_blank">
+          <i class="fab fa-discord"></i>
+          <span>Dołącz do Discord</span>
+          <div class="button-glow"></div>
+        </a>
+        <a href="podania.html" class="cta-button secondary">
+          <i class="fas fa-play"></i>
+          <span>Rozpocznij grę</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="scroll-indicator">
+      <div class="scroll-arrow">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Dlaczego Lucky Roleplay?</h2>
+        <p class="section-subtitle">Oferujemy unikalne doświadczenia w świecie GTA V</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Aktywna społeczność</h3>
+          <p>Dołącz do tysięcy graczy, którzy codziennie tworzą niesamowite historie</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Profesjonalna administracja</h3>
+          <p>Doświadczony zespół dbający o jakość rozgrywki i sprawiedliwość</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <h3>Unikalne systemy</h3>
+          <p>Zaawansowane mechaniki gry zapewniające realistyczne doświadczenia</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>24/7 Online</h3>
+          <p>Serwer dostępny przez całą dobę, każdego dnia w roku</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="2500">0</div>
+          <div class="stat-label">Aktywnych graczy</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="150">0</div>
+          <div class="stat-label">Online dziennie</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="365">0</div>
+          <div class="stat-label">Dni w roku</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="99">0</div>
+          <div class="stat-label">% Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Wspólny plik autoryzacji -->
+  <script src="auth.js"></script>
+  
+  <!-- Modern JavaScript for interactions -->
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileToggle = document.getElementById('mobileMenuToggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('mobile-active');
+          mobileToggle.classList.toggle('active');
+        });
+      }
+      
+      // Animated counter for stats
+      const animateCounter = (element, target) => {
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          element.textContent = Math.floor(current);
+        }, 20);
+      };
+      
+      // Intersection Observer for stats animation
+      const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const statNumbers = entry.target.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+              const target = parseInt(stat.dataset.target);
+              animateCounter(stat, target);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      const statsSection = document.querySelector('.stats-section');
+      if (statsSection) {
+        observer.observe(statsSection);
+      }
+      
+      // Smooth scroll for scroll indicator
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+          const featuresSection = document.querySelector('.features-section');
+          if (featuresSection) {
+            featuresSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+      
+      // Parallax effect for hero background
+      window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const heroBackground = document.querySelector('.hero-background');
+        if (heroBackground) {
+          heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
     });
-  }
-});
-</script>
-  </body>
+  </script>
+</body>
 </html>

@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="images/logolucky.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Panel Administratora - Lucky Roleplay</title>
+</head>
+<body>
+  <!-- Zachowanie starego nav dla kompatybilności -->
+  <div class="nav" style="display: none;">
+    <ul>
+      <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
+      <li><a class="navs podanie" href="podania.html">Podania</a></li>
+      <li class="login-nav">
+        <div class="user-menu">
+          <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
+          <div class="user-dropdown" id="userDropdown"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Nowoczesny navbar -->
+  <nav class="modern-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="images/logolucky.png" alt="Lucky Roleplay" class="nav-logo">
+        <span class="brand-text">Lucky<span class="brand-accent">RP</span></span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i>
+          Strona główna
+        </a>
+        <a href="regulamin.html" class="nav-link">
+          <i class="fas fa-scroll"></i>
+          Regulamin
+        </a>
+        <a href="podania.html" class="nav-link">
+          <i class="fas fa-file-alt"></i>
+          Podania
+        </a>
+        <a href="admin.html" class="nav-link active" id="adminPanelNavLink">
+          <i class="fas fa-cog"></i>
+          Panel Zarządzania
+        </a>
+        <a href="#" class="nav-link" id="userManagementNavLink" onclick="showUsersManagement()">
+          <i class="fas fa-users"></i>
+          Zarządzanie użytkownikami
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="modern-user-menu" id="modernUserMenu">
+          <div class="user-avatar-container">
+            <img src="images/user-icon.png" alt="Profil" class="modern-avatar" id="modernUserAvatar">
+            <div class="status-indicator"></div>
+          </div>
+          <div class="modern-dropdown" id="modernUserDropdown"></div>
+        </div>
+      </div>
+
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Zachowanie starych elementów dla kompatybilności -->
+  <div class="admin-container" style="display: none;">
+    <h1>Panel Administratora</h1>
+    
+    <div class="admin-section" id="orgSelectionOld">
+      <h2>Wybierz organizację do zarządzania:</h2>
+      <div class="admin-grid">
+        <div class="admin-card" onclick="showApplications('LSPD')">
+          <img src="images/lspd.png" alt="LSPD">
+          <h3>LSPD</h3>
+          <p>Los Santos Police Department</p>
+        </div>
+        
+        <div class="admin-card" onclick="showApplications('EMS')">
+          <img src="images/ems.jpg" alt="EMS">
+          <h3>EMS</h3>
+          <p>Emergency Medical Services</p>
+        </div>
+        
+        <div class="admin-card" onclick="showApplications('Skyline')">
+          <img src="images/lsc.jpg" alt="Skyline Customs">
+          <h3>Skyline Customs</h3>
+          <p>Mechanicy i tuning</p>
+        </div>
+        
+        <div class="admin-card" onclick="showApplications('Burgershot')">
+          <img src="images/burgershot.png" alt="Burgershot">
+          <h3>Burgershot</h3>
+          <p>Sieć restauracji</p>
+        </div>
+        
+        <div class="admin-card" onclick="showApplications('Crime')">
+          <img src="images/crime.png" alt="Organizacje przestępcze">
+          <h3>Organizacje przestępcze</h3>
+          <p>Gangi i kartele</p>
+        </div>
+        
+        <div class="admin-card" onclick="showApplications('Admin')">
+          <img src="images/staff.png" alt="Administracja">
+          <h3>Administracja</h3>
+          <p>Zespół administracji</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-section" id="applicationsViewOld" style="display: none;">
+      <div class="section-header">
+        <h2 id="currentOrgTitleOld">Podania</h2>
+        <button onclick="showOrgSelection()" class="back-btn">← Powrót</button>
+      </div>
+      <div id="applicationsListOld"></div>
+    </div>
+  </div>
+
+  <!-- Nowoczesny panel administratora -->
+  <div class="admin-page">
+    <div class="admin-background">
+      <div class="admin-overlay"></div>
+    </div>
+    
+    <div class="modern-admin-container">
+      <!-- Header sekcja -->
+      <div class="admin-header">
+        <div class="header-content">
+          <div class="admin-title">
+            <i class="fas fa-shield-alt"></i>
+            <h1 id="panelTitle">Panel Zarządzania</h1>
+          </div>
+          <p class="admin-subtitle" id="panelSubtitle">Zarządzaj podaniami do organizacji Lucky Roleplay</p>
+        </div>
+      </div>
+
+      <!-- Sekcja wyboru organizacji -->
+      <div class="admin-section modern-org-selection" id="orgSelection">
+        <div class="section-title">
+          <h2><i class="fas fa-building"></i> Wybierz organizację</h2>
+          <p>Kliknij na kartę organizacji, aby zarządzać podaniami</p>
+        </div>
+        
+        <div class="modern-admin-grid">
+          <div class="modern-org-card lspd-org" onclick="showApplications('LSPD')">
+            <div class="org-card-header">
+              <img src="images/lspd.png" alt="LSPD">
+              <div class="org-badge police">Służby</div>
+            </div>
+            <div class="org-card-content">
+              <h3>LSPD</h3>
+              <p>Los Santos Police Department</p>
+              <div class="org-features">
+                <span class="feature-tag"><i class="fas fa-shield-alt"></i> Policja</span>
+                <span class="feature-tag"><i class="fas fa-car"></i> Patrol</span>
+              </div>
+            </div>
+            <div class="org-card-footer">
+              <button class="view-btn">
+                <i class="fas fa-eye"></i>
+                Przeglądaj podania
+              </button>
+            </div>
+          </div>
+
+          <div class="modern-org-card ems-org" onclick="showApplications('EMS')">
+            <div class="org-card-header">
+              <img src="images/ems.jpg" alt="EMS">
+              <div class="org-badge medical">Służby</div>
+            </div>
+            <div class="org-card-content">
+              <h3>EMS</h3>
+              <p>Emergency Medical Services</p>
+              <div class="org-features">
+                <span class="feature-tag"><i class="fas fa-ambulance"></i> Medyk</span>
+                <span class="feature-tag"><i class="fas fa-heart"></i> Ratownik</span>
+              </div>
+            </div>
+            <div class="org-card-footer">
+              <button class="view-btn">
+                <i class="fas fa-eye"></i>
+                Przeglądaj podania
+              </button>
+            </div>
+          </div>
+
+          <div class="modern-org-card skyline-org" onclick="showApplications('Skyline')">
+            <div class="org-card-header">
+              <img src="images/lsc.jpg" alt="Skyline Customs">
+              <div class="org-badge business">Biznes</div>
+            </div>
+            <div class="org-card-content">
+              <h3>Skyline Customs</h3>
+              <p>Mechanicy i tuning</p>
+              <div class="org-features">
+                <span class="feature-tag"><i class="fas fa-wrench"></i> Mechanik</span>
+                <span class="feature-tag"><i class="fas fa-car"></i> Tuning</span>
+              </div>
+            </div>
+            <div class="org-card-footer">
+              <button class="view-btn">
+                <i class="fas fa-eye"></i>
+                Przeglądaj podania
+              </button>
+            </div>
+          </div>
+
+          <div class="modern-org-card burgershot-org" onclick="showApplications('Burgershot')">
+            <div class="org-card-header">
+              <img src="images/burgershot.png" alt="Burgershot">
+              <div class="org-badge business">Biznes</div>
+            </div>
+            <div class="org-card-content">
+              <h3>Burgershot</h3>
+              <p>Sieć restauracji</p>
+              <div class="org-features">
+                <span class="feature-tag"><i class="fas fa-hamburger"></i> Kucharz</span>
+                <span class="feature-tag"><i class="fas fa-users"></i> Obsługa</span>
+              </div>
+            </div>
+            <div class="org-card-footer">
+              <button class="view-btn">
+                <i class="fas fa-eye"></i>
+                Przeglądaj podania
+              </button>
+            </div>
+          </div>
+
+          <div class="modern-org-card crime-org" onclick="showApplications('Crime')">
+            <div class="org-card-header">
+              <img src="images/crime.png" alt="Organizacje przestępcze">
+              <div class="org-badge criminal">Przestępcze</div>
+            </div>
+            <div class="org-card-content">
+              <h3>Organizacje przestępcze</h3>
+              <p>Gangi i kartele</p>
+              <div class="org-features">
+                <span class="feature-tag"><i class="fas fa-mask"></i> Gang</span>
+                <span class="feature-tag"><i class="fas fa-money-bill"></i> Biznes</span>
+              </div>
+            </div>
+            <div class="org-card-footer">
+              <button class="view-btn">
+                <i class="fas fa-eye"></i>
+                Przeglądaj podania
+              </button>
+            </div>
+          </div>
+
+          <div class="modern-org-card admin-org" onclick="showApplications('Admin')">
+            <div class="org-card-header">
+              <img src="images/staff.png" alt="Administracja">
+              <div class="org-badge admin">Admin</div>
+            </div>
+            <div class="org-card-content">
+              <h3>Administracja</h3>
+              <p>Zespół administracji</p>
+              <div class="org-features">
+                <span class="feature-tag"><i class="fas fa-crown"></i> Admin</span>
+                <span class="feature-tag"><i class="fas fa-cog"></i> Zarządzanie</span>
+              </div>
+            </div>
+            <div class="org-card-footer">
+              <button class="view-btn">
+                <i class="fas fa-eye"></i>
+                Przeglądaj podania
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sekcja podań -->
+      <div class="admin-section modern-applications-view" id="applicationsView" style="display: none;">
+        <div class="admin-applications-header">
+          <div class="header-controls">
+            <button onclick="showOrgSelection()" class="modern-back-btn">
+              <i class="fas fa-arrow-left"></i>
+              Powrót do organizacji
+            </button>
+            <h2 id="currentOrgTitle">Podania</h2>
+          </div>
+        </div>
+        <div class="applications-content">
+          <div id="applicationsList"></div>
+        </div>
+      </div>
+
+      <!-- Sekcja zarządzania użytkownikami -->
+      <div class="admin-section modern-users-management" id="usersManagement" style="display: none;">
+        <div class="admin-users-header">
+          <div class="header-controls">
+            <button onclick="showOrgSelection()" class="modern-back-btn">
+              <i class="fas fa-arrow-left"></i>
+              Powrót do organizacji
+            </button>
+            <h2><i class="fas fa-users"></i> Zarządzanie użytkownikami</h2>
+          </div>
+          
+          <!-- Wyszukiwarka użytkowników -->
+          <div class="users-search-section">
+            <div class="modern-search-container">
+              <div class="search-box">
+                <div class="search-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <input type="text" id="userSearch" placeholder="Wyszukaj użytkownika po nazwie lub Discord ID..." class="modern-search-input">
+                <button onclick="searchUsers()" class="modern-search-btn">
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+              <div class="search-filters">
+                <button class="filter-btn active" onclick="filterUsers('all')">
+                  <i class="fas fa-users"></i>
+                  Wszyscy
+                </button>
+                <button class="filter-btn" onclick="filterUsers('admin')">
+                  <i class="fas fa-crown"></i>
+                  Administratorzy
+                </button>
+                <button class="filter-btn" onclick="filterUsers('banned')">
+                  <i class="fas fa-ban"></i>
+                  Zbanowani
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="users-content">
+          <!-- Lista użytkowników -->
+          <div class="users-list-container">
+            <div class="users-stats">
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number" id="totalUsers">0</div>
+                <div class="stat-label">Łączna liczba użytkowników</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-crown"></i>
+                </div>
+                <div class="stat-number" id="totalAdmins">0</div>
+                <div class="stat-label">Administratorzy</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">
+                  <i class="fas fa-ban"></i>
+                </div>
+                <div class="stat-number" id="totalBanned">0</div>
+                <div class="stat-label">Zbanowane Discord ID</div>
+              </div>
+            </div>
+            
+            <div id="usersList" class="users-list">
+              <div class="loading">Ładowanie użytkowników...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal do wyświetlania szczegółów podania -->
+  <div id="applicationModal" class="modern-modal" style="display: none; opacity: 0;">
+    <div class="modal-backdrop" onclick="closeApplicationModal()"></div>
+    <div class="application-modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Szczegóły podania</h3>
+        <button onclick="closeApplicationModal()" class="modal-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <div class="loading">Ładowanie danych...</div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-actions">
+          <button onclick="closeApplicationModal()" class="modal-btn secondary">
+            <i class="fas fa-times"></i>
+            Zamknij
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal do edycji użytkownika -->
+  <div id="editUserModal" class="modern-modal" style="display: none; opacity: 0;">
+    <div class="modal-backdrop" onclick="closeEditUserModal()"></div>
+    <div class="user-modal-content">
+      <div class="modal-header">
+        <h3 id="editUserModalTitle">Edytuj użytkownika</h3>
+        <button onclick="closeEditUserModal()" class="modal-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editUserForm">
+          <input type="hidden" id="editUserId">
+          
+          <div class="form-group">
+            <label for="editUserName">
+              <i class="fas fa-user"></i>
+              Nazwa użytkownika
+            </label>
+            <input type="text" id="editUserName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="editUserDiscord">
+              <i class="fab fa-discord"></i>
+              Discord ID
+            </label>
+            <input type="text" id="editUserDiscord" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="editUserRole">
+              <i class="fas fa-crown"></i>
+              Rola
+            </label>
+            <select id="editUserRole" required>
+              <option value="user">Użytkownik</option>
+              <option value="admin">Administrator</option>
+              <option value="recruiter_lspd">Rekrutant LSPD</option>
+              <option value="recruiter_ems">Rekrutant EMS</option>
+              <option value="recruiter_skyline">Rekrutant Skyline</option>
+              <option value="recruiter_burgershot">Rekrutant Burgershot</option>
+              <option value="recruiter_crime">Rekrutant Crime</option>
+              <option value="banned">Zbanowany</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-actions">
+          <button onclick="saveUserChanges()" class="modal-btn primary">
+            <i class="fas fa-save"></i>
+            Zapisz zmiany
+          </button>
+          <button onclick="closeEditUserModal()" class="modal-btn secondary">
+            <i class="fas fa-times"></i>
+            Anuluj
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal potwierdzenia usunięcia -->
+  <div id="confirmDeleteModal" class="modern-modal" style="display: none; opacity: 0;">
+    <div class="modal-backdrop" onclick="closeConfirmDeleteModal()"></div>
+    <div class="confirm-modal-content">
+      <div class="modal-header">
+        <h3>Potwierdź usunięcie</h3>
+        <button onclick="closeConfirmDeleteModal()" class="modal-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-content">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>Czy na pewno chcesz usunąć konto użytkownika <strong id="deleteUserName"></strong>?</p>
+          <p class="warning-text">Ta operacja jest nieodwracalna!</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-actions">
+          <button onclick="confirmDeleteUser()" class="modal-btn danger">
+            <i class="fas fa-trash"></i>
+            Usuń konto
+          </button>
+          <button onclick="closeConfirmDeleteModal()" class="modal-btn secondary">
+            <i class="fas fa-times"></i>
+            Anuluj
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal potwierdzenia bana -->
+  <div id="confirmBanModal" class="modern-modal" style="display: none; opacity: 0;">
+    <div class="modal-backdrop" onclick="closeConfirmBanModal()"></div>
+    <div class="confirm-modal-content">
+      <div class="modal-header">
+        <h3>Potwierdź ban</h3>
+        <button onclick="closeConfirmBanModal()" class="modal-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-content">
+          <i class="fas fa-ban"></i>
+          <p>Czy na pewno chcesz zbanować użytkownika <strong id="banUserName"></strong>?</p>
+          <p class="warning-text">To spowoduje usunięcie konta i dodanie Discord ID do blacklisty!</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-actions">
+          <button onclick="confirmBanUser()" class="modal-btn danger">
+            <i class="fas fa-ban"></i>
+            Zbanuj użytkownika
+          </button>
+          <button onclick="closeConfirmBanModal()" class="modal-btn secondary">
+            <i class="fas fa-times"></i>
+            Anuluj
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kontener powiadomień -->
+  <div id="notificationContainer" class="notification-container"></div>
+
+  <script src="auth.js"></script>
+  <script>
+    let currentOrg = null;
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Sprawdź czy użytkownik ma odpowiednie uprawnienia
+      const authData = await checkAuthStatus();
+      if (!authData.loggedIn || (!authData.role.includes('admin') && !authData.role.includes('recruiter'))) {
+        window.location.href = 'index.html';  // Usuń alert, przekieruj od razu
+        return;
+      }
+    });
+
+    // POPRAW TĘ FUNKCJĘ
+    async function showApplications(organization) {
+      await loadApplications(organization);
+    }
+
+    async function loadApplications(organization) {
+      currentOrg = organization;
+      console.log('Ładowanie aplikacji dla organizacji:', organization);
+      
+      // Pokaż loading
+      document.getElementById('applicationsList').innerHTML = '<p class="loading">Ładowanie podań...</p>';
+      document.getElementById('currentOrgTitle').textContent = `Podania - ${organization}`;
+      document.getElementById('orgSelection').style.display = 'none';
+      document.getElementById('applicationsView').style.display = 'block';
+      
+      try {
+        const response = await fetch(`/api/admin/applications/${organization}`);
+        console.log('Status odpowiedzi:', response.status);
+        const data = await response.json();
+        console.log('Dane z serwera:', JSON.stringify(data, null, 2));
+        
+        if (data.success) {
+          displayApplications(data.applications, organization);
+        } else {
+          console.error('Błąd z serwera:', data.message);
+          document.getElementById('applicationsList').innerHTML = `<p class="error">Błąd: ${data.message}</p>`;
+          if (typeof showNotification === 'function') {
+            showNotification(data.message || 'Błąd przy ładowaniu podań', 'error');
+          }
+        }
+      } catch (error) {
+        console.error('Błąd:', error);
+        document.getElementById('applicationsList').innerHTML = '<p class="error">Błąd połączenia z serwerem</p>';
+        if (typeof showNotification === 'function') {
+          showNotification('Błąd połączenia z serwerem', 'error');
+        }
+      }
+    }
+
+    function displayApplications(applications, organization) {
+      const orgNames = {
+        'LSPD': 'Los Santos Police Department',
+        'EMS': 'Emergency Medical Services',
+        'Skyline': 'Skyline Customs',
+        'Burgershot': 'Burgershot',
+        'Crime': 'Organizacje przestępcze',
+        'Admin': 'Administracja'
+      };
+
+      document.getElementById('currentOrgTitle').textContent = `Podania - ${orgNames[organization]}`;
+
+      const listContainer = document.getElementById('applicationsList');
+      
+      if (applications.length === 0) {
+        listContainer.innerHTML = '<p class="no-applications">Brak podań dla tej organizacji</p>';
+        return;
+      }
+
+      let html = '';
+      applications.forEach(app => {
+        const statusClass = app.status === 'pending' ? 'status-pending' : 
+                           app.status === 'approved' ? 'status-approved' : 'status-rejected';
+        
+        // Obsługa różnych formatów danych
+        let questionsHtml = '';
+        if (app.questions_answers) {
+          try {
+            const answers = JSON.parse(app.questions_answers);
+            questionsHtml = '<div class="questions-section"><h4>Odpowiedzi na pytania:</h4>';
+            
+            Object.entries(answers).forEach(([questionId, answer]) => {
+              if (answer && answer.trim()) {
+                const questionLabel = questionId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                questionsHtml += `<p><strong>${questionLabel}:</strong> ${answer}</p>`;
+              }
+            });
+            
+            questionsHtml += '</div>';
+          } catch (e) {
+            questionsHtml = '<p><em>Błąd parsowania odpowiedzi</em></p>';
+          }
+        }
+        
+        html += `
+          <div class="application-item">
+            <div class="app-header">
+              <h3>Formularz zgłoszeniowy (${app.username})</h3>
+              <span class="status ${statusClass}">${getStatusText(app.status)}</span>
+            </div>
+            <div class="app-details">
+              <p><strong>Nick użytkownika:</strong> ${app.username || 'Brak danych'}</p>
+              <p><strong>Discord:</strong> ${app.discord_contact}</p>
+              <p><strong>Data złożenia:</strong> ${new Date(app.created_at).toLocaleDateString('pl-PL')}</p>
+            </div>
+            <div class="app-actions">
+              <button onclick="updateStatus(${app.id}, 'approved')" class="btn-approve">
+                <i class="fas fa-check"></i>
+                Zaakceptuj
+              </button>
+              <button onclick="updateStatus(${app.id}, 'rejected')" class="btn-reject">
+                <i class="fas fa-times"></i>
+                Odrzuć
+              </button>
+              <button onclick="showApplicationDetails(${app.id})" class="btn-view">
+                <i class="fas fa-eye"></i>
+                Wgląd
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      listContainer.innerHTML = html;
+    }
+
+    function getStatusText(status) {
+      switch(status) {
+        case 'pending': return 'Oczekujące';
+        case 'approved': return 'Zaakceptowane';
+        case 'rejected': return 'Odrzucone';
+        default: return status;
+      }
+    }
+
+    async function updateStatus(applicationId, newStatus) {
+      try {
+        // Zapisz aktualną pozycję scrollowania
+        const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
+        const response = await fetch('/api/admin/update-application-status', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            applicationId: applicationId,
+            status: newStatus
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          await loadApplications(currentOrg);
+          
+          // Przywróć pozycję scrollowania po załadowaniu danych
+          setTimeout(() => {
+            window.scrollTo(0, currentScrollPosition);
+          }, 100);
+        } else {
+          alert('Błąd aktualizacji statusu: ' + data.message);
+        }
+      } catch (error) {
+        alert('Błąd połączenia z serwerem');
+      }
+    }
+
+    function showOrgSelection() {
+      document.getElementById('orgSelection').style.display = 'block';
+      document.getElementById('applicationsView').style.display = 'none';
+    }
+
+    // Funkcja do wyświetlania szczegółów podania w modalu
+    async function showApplicationDetails(applicationId) {
+      const modal = document.getElementById('applicationModal');
+      const modalBody = document.getElementById('modalBody');
+      const modalTitle = document.getElementById('modalTitle');
+      
+      // Pokaż modal
+      modal.style.display = 'flex';
+      setTimeout(() => modal.style.opacity = '1', 10);
+      
+      // Pokaż loading
+      modalBody.innerHTML = '<div class="loading">Ładowanie danych podania...</div>';
+      modalTitle.textContent = 'Szczegóły podania';
+      
+      try {
+        const response = await fetch(`/api/admin/application-details/${applicationId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          displayApplicationInModal(data.application);
+        } else {
+          modalBody.innerHTML = `<div class="error">Błąd: ${data.message}</div>`;
+        }
+      } catch (error) {
+        console.error('Błąd:', error);
+        modalBody.innerHTML = '<div class="error">Błąd połączenia z serwerem</div>';
+      }
+    }
+
+    function displayApplicationInModal(app) {
+      const modalTitle = document.getElementById('modalTitle');
+      const modalBody = document.getElementById('modalBody');
+      
+      modalTitle.textContent = `Podanie: ${app.organization} - ${app.username}`;
+      
+      let html = `
+        <div class="application-details">
+          <div class="detail-section basic-info">
+            <h4><i class="fas fa-user"></i> Podstawowe informacje</h4>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <label>Nick użytkownika:</label>
+                <span>${app.username}</span>
+              </div>
+              <div class="detail-item">
+                <label>Discord:</label>
+                <span>${app.discord_contact}</span>
+              </div>
+              <div class="detail-item">
+                <label>Organizacja:</label>
+                <span>${getOrganizationName(app.organization)}</span>
+              </div>
+              <div class="detail-item">
+                <label>Status:</label>
+                <span class="status-badge ${app.status}">${getStatusText(app.status)}</span>
+              </div>
+              <div class="detail-item">
+                <label>Data złożenia:</label>
+                <span>${new Date(app.created_at).toLocaleDateString('pl-PL')} ${new Date(app.created_at).toLocaleTimeString('pl-PL')}</span>
+              </div>
+            </div>
+          </div>
+      `;
+      
+      // Dodaj odpowiedzi na pytania
+      if (app.questions_answers) {
+        try {
+          const answers = JSON.parse(app.questions_answers);
+          html += `
+            <div class="detail-section questions-answers">
+              <h4><i class="fas fa-clipboard-list"></i> Odpowiedzi na pytania</h4>
+              <div class="answers-list">
+          `;
+          
+          Object.entries(answers).forEach(([questionId, answer]) => {
+            if (answer && answer.trim()) {
+              const questionLabel = formatQuestionLabel(questionId);
+              html += `
+                <div class="answer-item">
+                  <label>${questionLabel}:</label>
+                  <div class="answer-content">${answer}</div>
+                </div>
+              `;
+            }
+          });
+          
+          html += `
+              </div>
+            </div>
+          `;
+        } catch (e) {
+          html += `
+            <div class="detail-section">
+              <h4>Odpowiedzi na pytania</h4>
+              <p class="error">Błąd parsowania odpowiedzi</p>
+            </div>
+          `;
+        }
+      }
+      
+      html += '</div>';
+      modalBody.innerHTML = html;
+    }
+
+    function formatQuestionLabel(questionId) {
+      // Mapowanie ID pytań na czytelne etykiety
+      const questionLabels = {
+        'full_name': 'Imię i nazwisko',
+        'age': 'Wiek',
+        'lspd_experience': 'Doświadczenie w służbach mundurowych',
+        'lspd_motivation': 'Motywacja do dołączenia do LSPD',
+        'lspd_law_knowledge': 'Znajomość prawa stanowego (1-10)',
+        'lspd_situation': 'Postępowanie podczas kontroli drogowej',
+        'lspd_additional': 'Dodatkowe informacje',
+        'ems_medical_experience': 'Doświadczenie medyczne',
+        'ems_motivation': 'Motywacja do pomagania jako ratownik',
+        'ems_stress': 'Radzenie sobie ze stresem',
+        'ems_availability': 'Dostępność (godziny dziennie)',
+        'skyline_mechanic_experience': 'Doświadczenie w naprawie pojazdów',
+        'skyline_favorite_vehicle': 'Ulubiony pojazd',
+        'skyline_customer_service': 'Podejście do obsługi klientów',
+        'skyline_work_hours': 'Preferowane godziny pracy',
+        'burgershot_cooking_experience': 'Doświadczenie kulinarne',
+        'burgershot_motivation': 'Motywacja do pracy w Burgershot',
+        'burgershot_customer_service': 'Podejście do obsługi klientów',
+        'burgershot_stress_handling': 'Radzenie sobie z presją',
+        'burgershot_availability': 'Dostępność (godziny dziennie)',
+        'burgershot_shift_preference': 'Preferowana zmiana',
+        'admin_first_name': 'Imię',
+        'admin_age': 'Wiek',
+        'admin_rp_experience': 'Doświadczenie w RP i administrowaniu',
+        'admin_motivation': 'Motywacja do zostania administratorem',
+        'admin_time_availability': 'Dostępność (godziny dziennie)',
+        'admin_conflict_resolution': 'Rozwiązywanie konfliktów',
+        'admin_rule_knowledge': 'Znajomość regulaminu (1-10)',
+        'admin_previous': 'Poprzednie doświadczenie administracyjne'
+      };
+      
+      return questionLabels[questionId] || questionId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    function getOrganizationName(org) {
+      const orgNames = {
+        'LSPD': 'Los Santos Police Department',
+        'EMS': 'Emergency Medical Services', 
+        'Skyline': 'Skyline Customs',
+        'Burgershot': 'Burgershot',
+        'Crime': 'Organizacje przestępcze',
+        'Admin': 'Administracja'
+      };
+      return orgNames[org] || org;
+    }
+
+    function closeApplicationModal() {
+      const modal = document.getElementById('applicationModal');
+      modal.style.opacity = '0';
+      setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    // ===== FUNKCJE ZARZĄDZANIA UŻYTKOWNIKAMI =====
+    
+    let allUsers = [];
+    let currentEditUserId = null;
+    let currentDeleteUserId = null;
+    let currentBanUserId = null;
+
+    async function showUsersManagement() {
+      // Ukryj inne sekcje
+      document.getElementById('orgSelection').style.display = 'none';
+      document.getElementById('applicationsView').style.display = 'none';
+      
+      // Pokaż sekcję użytkowników
+      document.getElementById('usersManagement').style.display = 'block';
+      
+      // Załaduj użytkowników
+      await loadUsers();
+    }
+
+    async function loadUsers() {
+      try {
+        const response = await fetch('/api/admin/users');
+        const data = await response.json();
+        
+        if (data.success) {
+          allUsers = data.users;
+          displayUsers(allUsers);
+          updateUserStats(data.stats);
+        } else {
+          console.error('Błąd podczas ładowania użytkowników:', data.message);
+        }
+      } catch (error) {
+        console.error('Błąd sieci:', error);
+        document.getElementById('usersList').innerHTML = '<p class="error">Błąd podczas ładowania użytkowników</p>';
+      }
+    }
+
+    function displayUsers(users) {
+      const usersList = document.getElementById('usersList');
+      
+      if (users.length === 0) {
+        usersList.innerHTML = '<p class="no-users">Brak użytkowników do wyświetlenia</p>';
+        return;
+      }
+
+      const usersHTML = users.map(user => `
+        <div class="user-card" data-user-id="${user.id}">
+          <div class="user-info">
+            <div class="user-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="user-details">
+              <h4 class="user-name">${user.username}</h4>
+              <p class="user-discord"><i class="fab fa-discord"></i> ${user.discord_id}</p>
+              <span class="user-role role-${user.role}">${getRoleName(user.role)}</span>
+            </div>
+          </div>
+          <div class="user-actions">
+            <button onclick="editUser(${user.id})" class="action-btn edit" title="Edytuj użytkownika">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button onclick="deleteUser(${user.id}, '${user.username.replace(/'/g, "\\'")}')" class="action-btn delete" title="Usuń konto">
+              <i class="fas fa-trash"></i>
+            </button>
+            <button onclick="banUser(${user.id}, '${user.username.replace(/'/g, "\\'")}')" class="action-btn ban" title="Zbanuj użytkownika">
+              <i class="fas fa-ban"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      usersList.innerHTML = usersHTML;
+    }
+
+    function updateUserStats(stats) {
+      document.getElementById('totalUsers').textContent = stats.totalUsers || 0;
+      document.getElementById('totalAdmins').textContent = stats.totalAdmins || 0;
+      document.getElementById('totalBanned').textContent = stats.totalBanned || 0;
+    }
+
+    function getRoleName(role) {
+      const roleNames = {
+        'user': 'Użytkownik',
+        'admin': 'Administrator',
+        'recruiter_lspd': 'Rekrutant LSPD',
+        'recruiter_ems': 'Rekrutant EMS',
+        'recruiter_skyline': 'Rekrutant Skyline',
+        'recruiter_burgershot': 'Rekrutant Burgershot',
+        'recruiter_crime': 'Rekrutant Crime',
+        'banned': 'Zbanowany'
+      };
+      return roleNames[role] || role;
+    }
+
+    async function searchUsers() {
+      const searchTerm = document.getElementById('userSearch').value.trim();
+      
+      if (!searchTerm) {
+        displayUsers(allUsers);
+        return;
+      }
+
+      const filteredUsers = allUsers.filter(user => 
+        user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.discord_id.includes(searchTerm)
+      );
+
+      displayUsers(filteredUsers);
+    }
+
+    function filterUsers(type) {
+      // Aktualizuj aktywny przycisk filtra
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.filter-btn').classList.add('active');
+      
+      let filteredUsers = allUsers;
+      
+      switch(type) {
+        case 'admin':
+          filteredUsers = allUsers.filter(user => user.role === 'admin' || user.role.includes('recruiter'));
+          break;
+        case 'banned':
+          filteredUsers = allUsers.filter(user => user.role === 'banned');
+          break;
+        case 'all':
+        default:
+          filteredUsers = allUsers;
+          break;
+      }
+      
+      displayUsers(filteredUsers);
+    }
+
+    // Edycja użytkownika
+    function editUser(userId) {
+      console.log('editUser called with userId:', userId);
+      console.log('allUsers:', allUsers);
+      
+      const user = allUsers.find(u => u.id === userId);
+      console.log('Found user:', user);
+      
+      if (!user) {
+        console.error('User not found with ID:', userId);
+        alert('Nie znaleziono użytkownika');
+        return;
+      }
+
+      currentEditUserId = userId;
+      
+      document.getElementById('editUserId').value = userId;
+      document.getElementById('editUserName').value = user.username;
+      document.getElementById('editUserDiscord').value = user.discord_id;
+      document.getElementById('editUserRole').value = user.role;
+      document.getElementById('editUserModalTitle').textContent = `Edytuj użytkownika: ${user.username}`;
+      
+      console.log('About to show modal');
+      showModal('editUserModal');
+    }
+
+    async function saveUserChanges() {
+      const userId = document.getElementById('editUserId').value;
+      const username = document.getElementById('editUserName').value.trim();
+      const discordId = document.getElementById('editUserDiscord').value.trim();
+      const role = document.getElementById('editUserRole').value;
+
+      if (!username || !discordId) {
+        showNotification('Wszystkie pola są wymagane do wypełnienia', 'warning', 'Niepełne dane');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/admin/users/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId,
+            username,
+            discordId,
+            role
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          closeEditUserModal();
+          await loadUsers(); // Odśwież listę
+          showNotification('Dane użytkownika zostały pomyślnie zaktualizowane', 'success', 'Zapisano zmiany');
+        } else {
+          showNotification('Nie udało się zaktualizować danych użytkownika: ' + data.message, 'error', 'Błąd zapisu');
+        }
+      } catch (error) {
+        console.error('Błąd podczas zapisywania:', error);
+        showNotification('Wystąpił błąd podczas zapisywania zmian. Spróbuj ponownie.', 'error', 'Błąd połączenia');
+      }
+    }
+
+    // Usuwanie użytkownika
+    function deleteUser(userId, username) {
+      currentDeleteUserId = userId;
+      document.getElementById('deleteUserName').textContent = username;
+      showModal('confirmDeleteModal');
+    }
+
+    async function confirmDeleteUser() {
+      try {
+        const response = await fetch('/api/admin/users/delete', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: currentDeleteUserId
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          closeConfirmDeleteModal();
+          await loadUsers(); // Odśwież listę
+          showNotification('Konto użytkownika zostało pomyślnie usunięte', 'success', 'Usunięto konto');
+        } else {
+          showNotification('Nie udało się usunąć konta użytkownika: ' + data.message, 'error', 'Błąd usuwania');
+        }
+      } catch (error) {
+        console.error('Błąd podczas usuwania:', error);
+        showNotification('Wystąpił błąd podczas usuwania konta. Spróbuj ponownie.', 'error', 'Błąd połączenia');
+      }
+    }
+
+    // Banowanie użytkownika
+    function banUser(userId, username) {
+      currentBanUserId = userId;
+      document.getElementById('banUserName').textContent = username;
+      showModal('confirmBanModal');
+    }
+
+    async function confirmBanUser() {
+      try {
+        const response = await fetch('/api/admin/users/ban', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: currentBanUserId
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          closeConfirmBanModal();
+          await loadUsers(); // Odśwież listę
+          showNotification('Użytkownik został pomyślnie zbanowany i dodany do blacklisty', 'success', 'Zbanowano użytkownika');
+        } else {
+          showNotification('Nie udało się zbanować użytkownika: ' + data.message, 'error', 'Błąd banowania');
+        }
+      } catch (error) {
+        console.error('Błąd podczas banowania:', error);
+        showNotification('Wystąpił błąd podczas banowania użytkownika. Spróbuj ponownie.', 'error', 'Błąd połączenia');
+      }
+    }
+
+    // Funkcje modali
+    function showModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = 'flex';
+      setTimeout(() => modal.style.opacity = '1', 10);
+    }
+
+    function closeEditUserModal() {
+      const modal = document.getElementById('editUserModal');
+      modal.style.opacity = '0';
+      setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    function closeConfirmDeleteModal() {
+      const modal = document.getElementById('confirmDeleteModal');
+      modal.style.opacity = '0';
+      setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    function closeConfirmBanModal() {
+      const modal = document.getElementById('confirmBanModal');
+      modal.style.opacity = '0';
+      setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    function showNotification(message, type = 'success', title = null, duration = 4000) {
+      const container = document.getElementById('notificationContainer');
+      
+      // Ustaw domyślne tytuły jeśli nie podano
+      if (!title) {
+        switch(type) {
+          case 'success':
+            title = 'Sukces';
+            break;
+          case 'error':
+            title = 'Błąd';
+            break;
+          case 'warning':
+            title = 'Ostrzeżenie';
+            break;
+          case 'info':
+            title = 'Informacja';
+            break;
+          default:
+            title = 'Powiadomienie';
+        }
+      }
+      
+      // Utwórz element powiadomienia
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      
+      // Ustaw ikonę na podstawie typu
+      let icon = 'fas fa-info-circle';
+      switch(type) {
+        case 'success':
+          icon = 'fas fa-check-circle';
+          break;
+        case 'error':
+          icon = 'fas fa-exclamation-circle';
+          break;
+        case 'warning':
+          icon = 'fas fa-exclamation-triangle';
+          break;
+        case 'info':
+          icon = 'fas fa-info-circle';
+          break;
+      }
+      
+      notification.innerHTML = `
+        <div class="notification-header">
+          <div class="notification-title">
+            <i class="${icon}"></i>
+            ${title}
+          </div>
+          <button class="notification-close" onclick="closeNotification(this)">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="notification-message">${message}</div>
+        <div class="notification-progress"></div>
+      `;
+      
+      // Dodaj do kontenera
+      container.appendChild(notification);
+      
+      // Animacja pojawienia się
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 10);
+      
+      // Animacja paska postępu
+      const progressBar = notification.querySelector('.notification-progress');
+      progressBar.style.width = '100%';
+      
+      setTimeout(() => {
+        progressBar.style.width = '0%';
+        progressBar.style.transition = `width ${duration}ms linear`;
+      }, 100);
+      
+      // Automatyczne usuwanie
+      setTimeout(() => {
+        closeNotification(notification.querySelector('.notification-close'));
+      }, duration);
+    }
+
+    function closeNotification(closeButton) {
+      const notification = closeButton.closest('.notification');
+      notification.classList.remove('show');
+      
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    }
+
+    // Event listener dla wyszukiwania na Enter
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('userSearch');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchUsers();
+          }
+        });
+        
+        // Real-time search
+        searchInput.addEventListener('input', function() {
+          clearTimeout(window.searchTimeout);
+          window.searchTimeout = setTimeout(searchUsers, 300);
+        });
+      }
+      
+      // Sprawdź sesję i inicjalizuj panel administratora
+      checkAdminSession();
+    });
+
+    // Sprawdzenie sesji administratora
+    async function checkAdminSession() {
+      try {
+        const response = await fetch('/api/check-auth');
+        const data = await response.json();
+        
+        if (!data.loggedIn) {
+          // Przekieruj do logowania
+          window.location.href = 'login.html';
+          return;
+        }
+        
+        // Sprawdź czy użytkownik ma uprawnienia administratora lub rekrutanta
+        const hasPermissions = data.role === 'admin' || data.role.includes('recruiter');
+        
+        if (!hasPermissions) {
+          // Użytkownik nie ma uprawnień
+          document.body.innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; color: #fff; text-align: center;">
+              <h1 style="color: #ff6b35; margin-bottom: 20px;">Brak dostępu</h1>
+              <p style="margin-bottom: 30px;">Nie masz uprawnień do panelu administratora.</p>
+              <a href="index.html" style="padding: 12px 24px; background: linear-gradient(45deg, #ff6b35, #ff8c42); color: white; text-decoration: none; border-radius: 8px;">Powrót do strony głównej</a>
+            </div>
+          `;
+          return;
+        }
+        
+        // Użytkownik ma uprawnienia - inicjalizuj panel
+        initializeAdminPanel(data);
+        
+      } catch (error) {
+        console.error('Błąd sprawdzania sesji:', error);
+        window.location.href = 'login.html';
+      }
+    }
+
+    // Inicjalizacja panelu administratora
+    function initializeAdminPanel(userData) {
+      // Zaktualizuj tytuły na podstawie roli
+      updatePanelTitles(userData.role);
+      
+      // Aktualizuj informacje o użytkowniku w navbar
+      updateUserInfo(userData);
+      
+      // Ukryj zarządzanie użytkownikami dla rekrutantów
+      if (userData.role !== 'admin') {
+        const userManagementLink = document.getElementById('userManagementNavLink');
+        if (userManagementLink) {
+          userManagementLink.style.display = 'none';
+        }
+      }
+      
+      // Pokaż tylko odpowiednie organizacje dla rekrutantów
+      filterOrganizationsForUser(userData.role);
+      
+      // Załaduj statystyki organizacji tylko dla adminów
+      if (userData.role === 'admin') {
+        loadOrgCounts();
+      }
+    }
+
+    // Aktualizuj tytuły panelu na podstawie roli
+    function updatePanelTitles(userRole) {
+      const titleElement = document.getElementById('panelTitle');
+      const subtitleElement = document.getElementById('panelSubtitle');
+      const navLinkElement = document.getElementById('adminPanelNavLink');
+      
+      if (userRole === 'admin') {
+        titleElement.textContent = 'Panel Administratora';
+        subtitleElement.textContent = 'Zarządzaj wszystkimi organizacjami i użytkownikami Lucky Roleplay';
+        if (navLinkElement) navLinkElement.innerHTML = '<i class="fas fa-cog"></i> Panel Admina';
+      } else {
+        const orgNames = {
+          'recruiter_lspd': 'LSPD',
+          'recruiter_ems': 'EMS',
+          'recruiter_skyline': 'Skyline Customs',
+          'recruiter_burgershot': 'Burgershot',
+          'recruiter_crime': 'Organizacji przestępczych'
+        };
+        
+        const orgName = orgNames[userRole] || 'organizacji';
+        titleElement.textContent = 'Panel Rekrutanta';
+        subtitleElement.textContent = `Zarządzaj podaniami do ${orgName}`;
+        if (navLinkElement) navLinkElement.innerHTML = '<i class="fas fa-cog"></i> Panel Rekrutanta';
+      }
+    }
+
+    // Filtruj organizacje na podstawie roli użytkownika
+    function filterOrganizationsForUser(userRole) {
+      const orgCards = document.querySelectorAll('.modern-org-card');
+      
+      if (userRole === 'admin') {
+        // Administrator widzi wszystkie organizacje
+        orgCards.forEach(card => card.style.display = 'block');
+        return;
+      }
+      
+      // Mapowanie ról rekrutantów do organizacji
+      const roleToOrg = {
+        'recruiter_lspd': 'LSPD',
+        'recruiter_ems': 'EMS', 
+        'recruiter_skyline': 'Skyline',
+        'recruiter_burgershot': 'Burgershot',
+        'recruiter_crime': 'Crime'
+      };
+      
+      const allowedOrg = roleToOrg[userRole];
+      
+      orgCards.forEach(card => {
+        const onclick = card.getAttribute('onclick');
+        if (onclick) {
+          const orgName = onclick.match(/'([^']+)'/)[1];
+          if (orgName === allowedOrg) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // Załaduj liczniki podań dla organizacji
+    async function loadOrgCounts() {
+      try {
+        const response = await fetch('/api/admin/application-counts');
+        const data = await response.json();
+        
+        if (data.success) {
+          // Aktualizuj liczniki na kartach organizacji
+          const orgCards = document.querySelectorAll('.org-card');
+          orgCards.forEach(card => {
+            const orgName = card.getAttribute('onclick').match(/'([^']+)'/)[1];
+            const countElement = card.querySelector('.count');
+            const count = data.counts[orgName] || 0;
+            if (countElement) {
+              countElement.textContent = `${count} ${count === 1 ? 'podanie' : count < 5 ? 'podania' : 'podań'}`;
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Błąd ładowania liczników organizacji:', error);
+      }
+    }
+
+    // Aktualizuj informacje o użytkowniku
+    function updateUserInfo(userData) {
+      const userDropdown = document.getElementById('modernUserDropdown');
+      
+      // Mapowanie ról na czytelne nazwy
+      const roleNames = {
+        'admin': 'Administrator',
+        'recruiter_lspd': 'Rekrutant LSPD',
+        'recruiter_ems': 'Rekrutant EMS',
+        'recruiter_skyline': 'Rekrutant Skyline',
+        'recruiter_burgershot': 'Rekrutant Burgershot',
+        'recruiter_crime': 'Rekrutant Crime'
+      };
+      
+      const displayRole = roleNames[userData.role] || userData.role;
+      
+      if (userDropdown) {
+        userDropdown.innerHTML = `
+          <div class="dropdown-header">
+            <div class="dropdown-user-info">
+              <div class="dropdown-username">${userData.username}</div>
+              <div class="dropdown-role">${displayRole}</div>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="index.html" class="dropdown-link">
+            <i class="fas fa-home"></i>
+            Strona główna
+          </a>
+          <a href="#" onclick="logout()" class="dropdown-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Wyloguj się
+          </a>
+        `;
+      }
+    }
+
+    // Funkcja wylogowania
+    async function logout() {
+      try {
+        await fetch('/api/logout', { method: 'POST' });
+        window.location.href = 'login.html';
+      } catch (error) {
+        console.error('Błąd podczas wylogowania:', error);
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html>

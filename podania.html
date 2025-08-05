@@ -6,72 +6,362 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="images/logolucky.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Lucky Roleplay - Podania</title>
 </head>
 <body>
-  <div class="nav">
-  <ul>
-    <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
-    <li><a class="navs podanie" href="podania.html">Podania</a></li>
-        <li class="login-nav">
-  <div class="user-menu">
-    <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
-    <div class="user-dropdown" id="userDropdown">
-      <button onclick="window.location.href='login.html'">Zaloguj się</button>
+  <!-- Modern Navigation Bar -->
+  <nav class="modern-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="images/logolucky.png" alt="Lucky RP Logo" class="nav-logo">
+        <span class="brand-text">Lucky<span class="brand-accent">RP</span></span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Strona główna</span>
+        </a>
+        <a href="regulamin.html" class="nav-link">
+          <i class="fas fa-scroll"></i>
+          <span>Regulamin</span>
+        </a>
+        <a href="podania.html" class="nav-link active">
+          <i class="fas fa-file-alt"></i>
+          <span>Podania</span>
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="user-menu modern-user-menu">
+          <div class="user-avatar-container">
+            <img src="images/user-icon.png" alt="Profil" class="user-avatar modern-avatar" id="userAvatar">
+            <div class="status-indicator"></div>
+          </div>
+          <div class="user-dropdown modern-dropdown" id="userDropdown">
+            <button onclick="window.location.href='login.html'">
+              <i class="fas fa-sign-in-alt"></i>
+              Zaloguj się
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-  </div>
-</li>
-  </ul>
-  </div>
-  <div class="podania-grid">
-  <div class="podanie-box lspd">
-    <div class="top-row">
-      <img src="images/lspd.png"/>
-      <h1>Los Santos Police Department</h1>
-    </div>
-    <p>Dołącz do Los Santos Police Department, aby służyć i chronić społeczność. Wypełnij poniższy formularz, aby złożyć podanie.</p>
-    <a class="aplikuj" href="">Złóż podanie</a>
-  </div>
-  <div class="podanie-box ems">
-    <div class="top-row">
-      <img src="images/ems.jpg"/>
-      <h1>Emergency Medical Services</h1>
-    </div>
-    <p>Pracuj jako ratownik medyczny w Los Santos. Wypełnij formularz, aby dołączyć do Emergency Medical Services.</p>
-    <a class="aplikuj" href="">Złóż podanie</a>
-  </div>
-  <div class="podanie-box lsc">
-    <div class="top-row">
-      <img src="images/lsc.jpg"/>
-      <h1>Los Santos Customs</h1>
-    </div>
-    <p>Pracuj w Los Santos Customs, aby naprawiać i modyfikować pojazdy. Wypełnij formularz, aby złożyć podanie.</p>
-    <a class="aplikuj" href="">Złóż podanie</a>
-  </div>
-  <div class="podanie-box administration">
-    <div class="top-row">
-      <img src="images/staff.png"/>
-      <h1>Administracja Serwera</h1>
-    </div>
-    <p>Dołącz do zespołu administracji Lucky Roleplay. Wypełnij formularz, aby złożyć podanie.</p>
-    <a class="aplikuj administracja" href="">Złóż podanie</a>
-  </div>
-</div>
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const menu = document.querySelector('.user-menu');
-  const avatar = document.getElementById('userAvatar');
-  if (avatar && menu) {
-    avatar.onclick = function(e) {
-      e.stopPropagation();
-      menu.classList.toggle('open');
-    };
-    document.addEventListener('click', function() {
-      menu.classList.remove('open');
-    });
-  }
-});
-</script>
-</body>
+  </nav>
 
+  <!-- Applications Header Section -->
+  <section class="applications-header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="page-title">
+          <i class="fas fa-file-alt"></i>
+          Dostępne <span class="title-highlight">Podania</span>
+        </h1>
+        <p class="page-description">
+          Wybierz organizację, do której chcesz dołączyć i rozpocznij swoją przygodę w Lucky Roleplay
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications Grid Section -->
+  <section class="applications-section">
+    <div class="container">
+      <div class="modern-applications-grid">
+        
+        <!-- LSPD Application -->
+        <div class="modern-application-card lspd-card">
+          <div class="card-header">
+            <div class="org-icon">
+              <img src="images/lspd.png" alt="LSPD"/>
+            </div>
+            <div class="card-badge">Służby</div>
+          </div>
+          <div class="card-content">
+            <h3 class="org-title">Los Santos Police Department</h3>
+            <p class="org-description">
+              Dołącz do Los Santos Police Department, aby służyć i chronić społeczność. 
+              Stań się częścią elitarnej jednostki policyjnej.
+            </p>
+            <div class="org-features">
+              <span class="feature-tag"><i class="fas fa-shield-alt"></i> Ochrona</span>
+              <span class="feature-tag"><i class="fas fa-handcuffs"></i> Śledztwa</span>
+              <span class="feature-tag"><i class="fas fa-car"></i> Patrol</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="modern-apply-btn primary" onclick="checkLoginBeforeApplication('LSPD')">
+              <i class="fas fa-paper-plane"></i>
+              <span>Złóż podanie</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- EMS Application -->
+        <div class="modern-application-card ems-card">
+          <div class="card-header">
+            <div class="org-icon">
+              <img src="images/ems.jpg" alt="EMS"/>
+            </div>
+            <div class="card-badge">Medyczne</div>
+          </div>
+          <div class="card-content">
+            <h3 class="org-title">Emergency Medical Services</h3>
+            <p class="org-description">
+              Pracuj jako ratownik medyczny w Los Santos. Ratuj życia i pomagaj 
+              obywatelom w sytuacjach kryzysowych.
+            </p>
+            <div class="org-features">
+              <span class="feature-tag"><i class="fas fa-heart"></i> Ratownictwo</span>
+              <span class="feature-tag"><i class="fas fa-ambulance"></i> Transport</span>
+              <span class="feature-tag"><i class="fas fa-user-md"></i> Leczenie</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="modern-apply-btn primary" onclick="checkLoginBeforeApplication('EMS')">
+              <i class="fas fa-paper-plane"></i>
+              <span>Złóż podanie</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Skyline Customs Application -->
+        <div class="modern-application-card skyline-card">
+          <div class="card-header">
+            <div class="org-icon">
+              <img src="images/lsc.jpg" alt="Skyline Customs"/>
+            </div>
+            <div class="card-badge">Mechanik</div>
+          </div>
+          <div class="card-content">
+            <h3 class="org-title">Skyline Customs</h3>
+            <p class="org-description">
+              Pracuj w Skyline Customs, naprawiaj i modyfikuj pojazdy. 
+              Zostań mistrzem tuningu w Los Santos.
+            </p>
+            <div class="org-features">
+              <span class="feature-tag"><i class="fas fa-wrench"></i> Naprawy</span>
+              <span class="feature-tag"><i class="fas fa-cog"></i> Tuning</span>
+              <span class="feature-tag"><i class="fas fa-paint-brush"></i> Lakiernia</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="modern-apply-btn primary" onclick="checkLoginBeforeApplication('Skyline')">
+              <i class="fas fa-paper-plane"></i>
+              <span>Złóż podanie</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Burgershot Application -->
+        <div class="modern-application-card burgershot-card">
+          <div class="card-header">
+            <div class="org-icon">
+              <img src="images/burgershot.png" alt="Burgershot"/>
+            </div>
+            <div class="card-badge">Gastronomia</div>
+          </div>
+          <div class="card-content">
+            <h3 class="org-title">Burgershot</h3>
+            <p class="org-description">
+              Dołącz do zespołu Burgershot i gotuj najlepsze burgery w Los Santos. 
+              Przyjazna atmosfera i elastyczne godziny pracy.
+            </p>
+            <div class="org-features">
+              <span class="feature-tag"><i class="fas fa-hamburger"></i> Gotowanie</span>
+              <span class="feature-tag"><i class="fas fa-users"></i> Obsługa</span>
+              <span class="feature-tag"><i class="fas fa-clock"></i> Elastyczność</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="modern-apply-btn primary" onclick="checkLoginBeforeApplication('Burgershot')">
+              <i class="fas fa-paper-plane"></i>
+              <span>Złóż podanie</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Criminal Organizations Application -->
+        <div class="modern-application-card crime-card">
+          <div class="card-header">
+            <div class="org-icon">
+              <img src="images/crime.png" alt="Organizacje przestępcze"/>
+            </div>
+            <div class="card-badge">Przestępcze</div>
+          </div>
+          <div class="card-content">
+            <h3 class="org-title">Organizacje Przestępcze</h3>
+            <p class="org-description">
+              Dołącz do świata przestępczego Los Santos. Buduj imperium, kontroluj terytoria 
+              i rywalizuj z innymi gangami o dominację w mieście.
+            </p>
+            <div class="org-features">
+              <span class="feature-tag"><i class="fas fa-mask"></i> Tajemnica</span>
+              <span class="feature-tag"><i class="fas fa-money-bill"></i> Biznes</span>
+              <span class="feature-tag"><i class="fas fa-fist-raised"></i> Siła</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="modern-apply-btn primary" onclick="checkLoginBeforeApplication('Crime')">
+              <i class="fas fa-paper-plane"></i>
+              <span>Złóż podanie</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Administration Application -->
+        <div class="modern-application-card admin-card">
+          <div class="card-header">
+            <div class="org-icon">
+              <img src="images/staff.png" alt="Administracja"/>
+            </div>
+            <div class="card-badge">Administracja</div>
+          </div>
+          <div class="card-content">
+            <h3 class="org-title">Administracja</h3>
+            <p class="org-description">
+              Dołącz do zespołu administracji Lucky Roleplay. Dbaj o jakość rozgrywki 
+              i pomagaj społeczności w codziennym funkcjonowaniu.
+            </p>
+            <div class="org-features">
+              <span class="feature-tag"><i class="fas fa-gavel"></i> Moderacja</span>
+              <span class="feature-tag"><i class="fas fa-users-cog"></i> Zarządzanie</span>
+              <span class="feature-tag"><i class="fas fa-shield-alt"></i> Ochrona</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="modern-apply-btn primary" onclick="checkLoginBeforeApplication('Admin')">
+              <i class="fas fa-paper-plane"></i>
+              <span>Złóż podanie</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Login Modal -->
+  <div id="loginModal" class="modern-modal" style="display: none;">
+    <div class="modal-backdrop"></div>
+    <div class="modern-modal-content">
+      <div class="modal-header">
+        <div class="modal-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h3>Wymagane logowanie</h3>
+        <button class="modal-close" onclick="closeLoginModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Aby złożyć podanie, musisz być zalogowany do swojego konta.</p>
+        <p>Wybierz jedną z opcji poniżej:</p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="window.location.href='login.html'" class="modal-btn primary">
+          <i class="fas fa-sign-in-alt"></i>
+          Zaloguj się
+        </button>
+        <button onclick="window.location.href='register.html'" class="modal-btn secondary">
+          <i class="fas fa-user-plus"></i>
+          Zarejestruj się
+        </button>
+        <button onclick="closeLoginModal()" class="modal-btn cancel">
+          <i class="fas fa-times"></i>
+          Anuluj
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wspólny plik autoryzacji -->
+  <script src="auth.js"></script>
+  
+  <!-- Modern JavaScript for applications page -->
+  <script>
+    // Mobile menu toggle (consistent with index page)
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileToggle = document.getElementById('mobileMenuToggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('mobile-active');
+          mobileToggle.classList.toggle('active');
+        });
+      }
+      
+      // Intersection Observer for card animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationDelay = `${entry.target.dataset.delay || 0}ms`;
+            entry.target.classList.add('animate-in');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all application cards
+      const cards = document.querySelectorAll('.modern-application-card');
+      cards.forEach((card, index) => {
+        card.dataset.delay = index * 100;
+        observer.observe(card);
+      });
+      
+      // Enhanced modal backdrop click
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target.classList.contains('modal-backdrop') || e.target === modal) {
+            closeLoginModal();
+          }
+        });
+      }
+    });
+    
+    // Enhanced modal close function
+    function closeLoginModal() {
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.opacity = '0';
+        setTimeout(() => {
+          modal.style.display = 'none';
+          modal.style.opacity = '1';
+        }, 300);
+      }
+    }
+    
+    // Enhanced modal show function  
+    function showLoginModal() {
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.style.opacity = '0';
+        setTimeout(() => {
+          modal.style.opacity = '1';
+        }, 10);
+      } else {
+        // Fallback
+        const choice = confirm("Aby złożyć podanie, musisz być zalogowany. Czy chcesz się teraz zalogować?");
+        if (choice) {
+          window.location.href = 'login.html';
+        }
+      }
+    }
+  </script>
+</body>
 </html>

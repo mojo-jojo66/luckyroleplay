@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test formularza</title>
+</head>
+<body>
+    <h1>Test formularza podania</h1>
+    
+    <button onclick="testAuth()">Test autoryzacji</button>
+    <button onclick="testUserInfo()">Test informacji użytkownika</button>
+    <button onclick="testSubmitApplication()">Test wysłania podania</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        function log(message) {
+            const div = document.getElementById('results');
+            div.innerHTML += '<p>' + message + '</p>';
+            console.log(message);
+        }
+        
+        async function testAuth() {
+            try {
+                const response = await fetch('/api/check-auth');
+                const data = await response.json();
+                log('Autoryzacja: ' + JSON.stringify(data));
+            } catch (error) {
+                log('Błąd autoryzacji: ' + error.message);
+            }
+        }
+        
+        async function testUserInfo() {
+            try {
+                const response = await fetch('/api/user-info');
+                const data = await response.json();
+                log('Informacje użytkownika: ' + JSON.stringify(data));
+            } catch (error) {
+                log('Błąd pobierania informacji: ' + error.message);
+            }
+        }
+        
+        async function testSubmitApplication() {
+            const formData = {
+                organization: 'LSPD',
+                discord_contact: 'testuser#1234',
+                answers: {
+                    full_name: 'Test User',
+                    age: 25,
+                    lspd_experience: 'Test experience',
+                    lspd_motivation: 'Test motivation'
+                }
+            };
+            
+            log('Wysyłanie danych: ' + JSON.stringify(formData));
+            
+            try {
+                const response = await fetch('/api/submit-application', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                log('Odpowiedź serwera: ' + JSON.stringify(data));
+            } catch (error) {
+                log('Błąd wysyłania: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

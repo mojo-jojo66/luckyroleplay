@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" href="images/logolucky.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Rejestracja - Lucky Roleplay</title>
 </head>
 <body>
-  <div class="nav">
+  <!-- Zachowanie starego nav dla kompatybilności -->
+  <div class="nav" style="display: none;">
     <ul>
       <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
       <li><a class="navs podanie" href="podania.html">Podania</a></li>
@@ -20,22 +25,187 @@
       </li>
     </ul>
   </div>
-  <section class="logowanie">
-    <form class="stylpodania login-box" id="registerForm">
-      <h2 style="color: #fff; text-align: center; margin-bottom: 32px;">Zarejestruj się</h2>
-      <label for="nick" style="color: #fff; display: block; margin-bottom: 6px; text-align: left;">Nazwa użytkownika:</label>
-      <input type="text" id="nick" name="nick" required>
-      <label for="discord" style="color: #fff; display: block; margin: 18px 0 6px 0; text-align: left;">Discord ID:</label>
-      <input type="text" id="discord" name="discord" required>
-      <label for="password" style="color: #fff; display: block; margin: 18px 0 6px 0; text-align: left;">Hasło:</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit" style="margin-top: 24px;">Zarejestruj się</button>
-      <p id="registerError" style="color:#ff4444; display:none; margin-top:10px;"></p>
-      <p style="margin-top:18px; color:#fff; text-align:center;">
+
+  <!-- Nowoczesny navbar -->
+  <nav class="modern-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="images/logolucky.png" alt="Lucky Roleplay" class="nav-logo">
+        <span class="brand-text">Lucky<span class="brand-accent">RP</span></span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i>
+          Strona główna
+        </a>
+        <a href="regulamin.html" class="nav-link">
+          <i class="fas fa-scroll"></i>
+          Regulamin
+        </a>
+        <a href="podania.html" class="nav-link">
+          <i class="fas fa-file-alt"></i>
+          Podania
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="modern-user-menu" id="modernUserMenu">
+          <div class="user-avatar-container">
+            <img src="images/user-icon.png" alt="Profil" class="modern-avatar" id="modernUserAvatar">
+            <div class="status-indicator"></div>
+          </div>
+          <div class="modern-dropdown" id="modernUserDropdown"></div>
+        </div>
+      </div>
+
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+  <!-- Zachowanie starych elementów dla kompatybilności -->
+  <section class="logowanie" style="display: none;">
+    <form class="stylpodania login-box" id="registerFormOld">
+      <h2>Zarejestruj się</h2>
+      <label for="usernameOld">Nazwa użytkownika:</label>
+      <input type="text" id="usernameOld" name="username" required>
+      <label for="discordOld">Discord ID:</label>
+      <input type="text" id="discordOld" name="discord" required>
+      <label for="passwordOld">Hasło:</label>
+      <input type="password" id="passwordOld" name="password" required>
+      <button type="submit">Zarejestruj się</button>
+      <p id="registerErrorOld" class="error-msg"></p>
+      <p class="login-link">
         Masz już konto?
-        <a href="login.html" style="color:#7ecfff; text-decoration:underline;">Zaloguj się!</a>
+        <a href="login.html">Zaloguj się!</a>
       </p>
     </form>
   </section>
+
+  <!-- Nowoczesna sekcja rejestracji -->
+  <div class="auth-page">
+    <div class="auth-background">
+      <div class="auth-overlay"></div>
+    </div>
+    
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-logo">
+            <img src="images/logolucky.png" alt="Lucky Roleplay">
+          </div>
+          <h1>Dołącz do nas!</h1>
+          <p>Utwórz konto i rozpocznij swoją przygodę w Lucky Roleplay</p>
+        </div>
+
+        <form class="modern-auth-form" id="registerForm">
+          <div class="input-group">
+            <label for="username">
+              <i class="fas fa-user"></i>
+              Nazwa użytkownika
+            </label>
+            <input type="text" id="username" name="username" required placeholder="Wprowadź swoją nazwę użytkownika">
+          </div>
+
+          <div class="input-group">
+            <label for="discord">
+              <i class="fab fa-discord"></i>
+              Discord ID
+            </label>
+            <input type="text" id="discord" name="discord" required placeholder="np. NazwaUzytkownika#1234">
+          </div>
+
+          <div class="input-group">
+            <label for="password">
+              <i class="fas fa-lock"></i>
+              Hasło
+            </label>
+            <input type="password" id="password" name="password" required placeholder="Wprowadź silne hasło">
+          </div>
+
+          <button type="submit" class="auth-submit-btn">
+            <i class="fas fa-user-plus"></i>
+            Utwórz konto
+          </button>
+
+          <div id="registerError" class="auth-error-msg"></div>
+        </form>
+
+        <div class="auth-footer">
+          <p>Masz już konto? <a href="login.html">Zaloguj się!</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Wspólny plik autoryzacji -->
+  <script src="auth.js"></script>
+  
+  <script>
+    // Specyficzna logika dla strony rejestracji
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Sprawdź czy użytkownik już jest zalogowany
+      const isLoggedIn = await redirectIfLoggedIn();
+      if (isLoggedIn) return; // Jeśli przekierowano, zatrzymaj wykonanie
+      
+      // Obsługa nowoczesnego formularza rejestracji
+      document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('.auth-submit-btn');
+        const errorMsg = document.getElementById('registerError');
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const discord = document.getElementById('discord').value;
+        
+        // Ukryj poprzedni błąd
+        errorMsg.classList.remove('show');
+        errorMsg.style.display = 'none';
+        
+        // Pokaż loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner"></i> Tworzenie konta...';
+        
+        try {
+          // Próba rejestracji
+          const result = await registerUser(username, password, discord);
+          
+          if (result.success) {
+            // Rejestracja udana
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Sukces!';
+            setTimeout(() => {
+              alert('Konto zostało utworzone! Możesz się teraz zalogować.');
+              window.location.href = 'login.html';
+            }, 500);
+          } else {
+            // Pokaż błąd
+            errorMsg.textContent = result.message;
+            errorMsg.style.display = 'block';
+            errorMsg.classList.add('show');
+            
+            // Przywróć przycisk
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+          }
+        } catch (error) {
+          // Błąd połączenia
+          errorMsg.textContent = 'Błąd połączenia z serwerem';
+          errorMsg.style.display = 'block';
+          errorMsg.classList.add('show');
+          
+          // Przywróć przycisk
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      });
+    });
+  </script>
 </body>
 </html>

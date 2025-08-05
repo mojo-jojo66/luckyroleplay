@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="images/logolucky.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Formularz Podania - Lucky Roleplay</title>
+</head>
+<body>
+  <!-- Zachowanie starego nav dla kompatybilności -->
+  <div class="nav" style="display: none;">
+    <ul>
+      <li><a class="navs" href="index.html"><img class="dom" src="images/home.png"/></a></li>
+      <li><a class="navs podanie" href="podania.html">Podania</a></li>
+      <li class="login-nav">
+        <div class="user-menu">
+          <img src="images/user-icon.png" alt="Profil" class="user-avatar" id="userAvatar" style="cursor:pointer;">
+          <div class="user-dropdown" id="userDropdown"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Nowoczesny navbar -->
+  <nav class="modern-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="images/logolucky.png" alt="Lucky Roleplay" class="nav-logo">
+        <span class="brand-text">Lucky<span class="brand-accent">RP</span></span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i>
+          Strona główna
+        </a>
+        <a href="regulamin.html" class="nav-link">
+          <i class="fas fa-scroll"></i>
+          Regulamin
+        </a>
+        <a href="podania.html" class="nav-link">
+          <i class="fas fa-file-alt"></i>
+          Podania
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="modern-user-menu" id="modernUserMenu">
+          <div class="user-avatar-container">
+            <img src="images/user-icon.png" alt="Profil" class="modern-avatar" id="modernUserAvatar">
+            <div class="status-indicator"></div>
+          </div>
+          <div class="modern-dropdown" id="modernUserDropdown"></div>
+        </div>
+      </div>
+
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Zachowanie starych modali dla kompatybilności -->
+  <div id="successModal" class="modal" style="display: none;">
+    <div class="modal-content success-modal">
+      <div class="modal-header success-header">
+        <h3>✅ Podanie zostało złożone!</h3>
+      </div>
+      <div class="modal-body">
+        <p><strong>Twoje podanie zostało pomyślnie przesłane.</strong></p>
+        <p>Zostanie ono sprawdzone i rozpatrzone <strong>maksymalnie do 3 dni</strong>.</p>
+        <p>Otrzymasz informację o decyzji na #wyniki-podań.</p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="closeSuccessModal()" class="btn-primary">Strona główna</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zachowanie starych kontenerów -->
+  <div id="cannotApplyContainerOld" class="application-container" style="display: none;">
+    <div class="cannot-apply-box">
+      <div class="form-header">
+        <img id="orgLogoErrorOld" src="" alt="Logo organizacji" style="width: 80px; height: 80px; border-radius: 20%;">
+        <h2 id="orgTitleErrorOld">Nie możesz złożyć podania</h2>
+      </div>
+      <div class="error-content">
+        <p id="cannotApplyReasonOld">Sprawdzanie dostępności...</p>
+        <button onclick="window.location.href='podania.html'" class="back-button">← Powrót do podań</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="applicationContainerOld" class="application-container" style="display: none;"></div>
+
+  <!-- Nowoczesny modal sukcesu -->
+  <div id="modernSuccessModal" class="modern-modal" style="display: none; opacity: 0;">
+    <div class="modal-backdrop"></div>
+    <div class="modern-modal-content">
+      <div class="modal-header">
+        <div class="modal-icon success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h3>Podanie zostało złożone!</h3>
+      </div>
+      <div class="modal-body">
+        <p><strong>Twoje podanie zostało pomyślnie przesłane.</strong></p>
+        <p>Zostanie ono sprawdzone i rozpatrzone <strong>maksymalnie do 3 dni</strong>.</p>
+        <p>Otrzymasz informację o decyzji na Discord.</p>
+      </div>
+      <div class="modal-footer">
+        <button onclick="closeSuccessModal()" class="modal-btn primary">
+          <i class="fas fa-home"></i>
+          Strona główna
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nowoczesna strona formularza -->
+  <div class="form-page">
+    <div class="form-background">
+      <div class="form-overlay"></div>
+    </div>
+    
+    <!-- Kontener dla komunikatu o niemożności złożenia podania -->
+    <div id="cannotApplyContainer" class="form-container" style="display: none;">
+      <div class="modern-error-card">
+        <div class="error-header">
+          <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <img id="orgLogoError" src="" alt="Logo organizacji" class="org-logo-error">
+          <h1 id="orgTitleError">Nie możesz złożyć podania</h1>
+        </div>
+        <div class="error-content">
+          <p id="cannotApplyReason">Sprawdzanie dostępności...</p>
+          <button onclick="window.location.href='podania.html'" class="modern-back-button">
+            <i class="fas fa-arrow-left"></i>
+            Powrót do podań
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nowoczesny formularz podania -->
+    <div id="applicationContainer" class="form-container" style="display: none;">
+      <div class="modern-form-card">
+        <div class="form-header-section">
+          <div class="form-logo-container">
+            <img id="orgLogo" src="" alt="Logo organizacji" class="modern-org-logo">
+            <div class="logo-glow"></div>
+          </div>
+          <h1 id="orgTitle">Formularz Podania</h1>
+          <p class="form-subtitle">Wypełnij wszystkie pola, aby złożyć podanie</p>
+        </div>
+
+        <form class="modern-application-form" id="applicationForm">
+          <!-- Informacja o Discord ID -->
+          <div class="discord-info-box">
+            <div class="info-icon">
+              <i class="fab fa-discord"></i>
+            </div>
+            <div class="info-content">
+              <p><strong>Discord:</strong> <span id="userDiscord">Ładowanie...</span></p>
+              <small>Discord ID zostanie automatycznie pobrany z Twojego konta</small>
+            </div>
+          </div>
+
+          <!-- Podstawowe dane -->
+          <div class="form-group">
+            <label for="fullName">
+              <i class="fas fa-user"></i>
+              Imię i nazwisko
+            </label>
+            <input type="text" id="fullName" name="fullName" required placeholder="Wprowadź swoje imię i nazwisko">
+          </div>
+
+          <div class="form-group">
+            <label for="age">
+              <i class="fas fa-calendar-alt"></i>
+              Wiek
+            </label>
+            <input type="number" id="age" name="age" min="16" max="80" required placeholder="Wprowadź swój wiek">
+          </div>
+
+          <!-- ===== PYTANIA DLA LSPD ===== -->
+          <div id="questionsLSPD" class="questions-container" style="display: none;">
+            <div class="form-group">
+              <label for="lspd_experience">
+                <i class="fas fa-shield-alt"></i>
+                Opisz swoje doświadczenie w pracy w służbach mundurowych (RP/IRL)
+              </label>
+              <textarea id="lspd_experience" name="lspd_experience" rows="4" placeholder="Opisz swoje doświadczenie w służbach mundurowych..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="lspd_motivation">
+                <i class="fas fa-heart"></i>
+                Dlaczego chcesz dołączyć do LSPD?
+              </label>
+              <textarea id="lspd_motivation" name="lspd_motivation" rows="3" placeholder="Opisz swoją motywację..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="lspd_law_knowledge">
+                <i class="fas fa-gavel"></i>
+                Oceń swoją znajomość prawa stanowego (1-10)
+              </label>
+              <input type="number" id="lspd_law_knowledge" name="lspd_law_knowledge" min="1" max="10" placeholder="Oceń od 1 do 10">
+            </div>
+
+            <div class="form-group">
+              <label for="lspd_situation">
+                <i class="fas fa-car"></i>
+                Jak zachowasz się podczas rutynowej kontroli drogowej?
+              </label>
+              <textarea id="lspd_situation" name="lspd_situation" rows="3" placeholder="Opisz swoje postępowanie podczas kontroli..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="lspd_additional">
+                <i class="fas fa-plus-circle"></i>
+                Dodatkowe informacje (opcjonalne)
+              </label>
+              <textarea id="lspd_additional" name="lspd_additional" rows="2" placeholder="Dodatkowe informacje, które chcesz przekazać..."></textarea>
+            </div>
+          </div>
+
+          <!-- ===== PYTANIA DLA EMS ===== -->
+          <div id="questionsEMS" class="questions-container" style="display: none;">
+            <div class="form-group">
+              <label for="ems_medical_experience">
+                <i class="fas fa-user-md"></i>
+                Opisz swoje doświadczenie medyczne (RP/IRL)
+              </label>
+              <textarea id="ems_medical_experience" name="ems_medical_experience" rows="4" placeholder="Opisz swoje doświadczenie medyczne..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="ems_motivation">
+                <i class="fas fa-heart"></i>
+                Dlaczego chcesz pomagać ludziom jako ratownik?
+              </label>
+              <textarea id="ems_motivation" name="ems_motivation" rows="3" placeholder="Opisz swoją motywację do pomagania..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="ems_stress">
+                <i class="fas fa-exclamation-triangle"></i>
+                Jak radzisz sobie ze stresem w sytuacjach kryzysowych?
+              </label>
+              <textarea id="ems_stress" name="ems_stress" rows="3" placeholder="Opisz jak radzisz sobie ze stresem..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="ems_availability">
+                <i class="fas fa-clock"></i>
+                Ile godzin dziennie możesz poświęcić na służbę?
+              </label>
+              <input type="number" id="ems_availability" name="ems_availability" min="1" max="12" placeholder="Liczba godzin dziennie">
+            </div>
+          </div>
+
+          <!-- ===== PYTANIA DLA SKYLINE ===== -->
+          <div id="questionsSkyline" class="questions-container" style="display: none;">
+            <div class="form-group">
+              <label for="skyline_mechanic_experience">
+                <i class="fas fa-wrench"></i>
+                Opisz swoje doświadczenie w naprawie pojazdów
+              </label>
+              <textarea id="skyline_mechanic_experience" name="skyline_mechanic_experience" rows="4" placeholder="Opisz swoje doświadczenie mechaniczne..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="skyline_favorite_vehicle">
+                <i class="fas fa-car"></i>
+                Jaki jest Twój ulubiony pojazd i dlaczego?
+              </label>
+              <textarea id="skyline_favorite_vehicle" name="skyline_favorite_vehicle" rows="2" placeholder="Opisz swój ulubiony pojazd..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="skyline_customer_service">
+                <i class="fas fa-users"></i>
+                Jak podchodzisz do obsługi klientów?
+              </label>
+              <textarea id="skyline_customer_service" name="skyline_customer_service" rows="3" placeholder="Opisz swoje podejście do klientów..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="skyline_work_hours">
+                <i class="fas fa-clock"></i>
+                Preferowane godziny pracy
+              </label>
+              <select id="skyline_work_hours" name="skyline_work_hours">
+                <option value="">Wybierz godziny pracy</option>
+                <option value="morning">Rano (6:00 - 14:00)</option>
+                <option value="afternoon">Popołudnie (14:00 - 22:00)</option>
+                <option value="night">Noc (22:00 - 6:00)</option>
+                <option value="flexible">Elastyczne godziny</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ===== PYTANIA DLA BURGERSHOT ===== -->
+          <div id="questionsBurgershot" class="questions-container" style="display: none;">
+            <div class="form-group">
+              <label for="burgershot_cooking_experience">
+                <i class="fas fa-hamburger"></i>
+                Opisz swoje doświadczenie w gotowaniu lub pracy w gastronomii
+              </label>
+              <textarea id="burgershot_cooking_experience" name="burgershot_cooking_experience" rows="4" placeholder="Opisz swoje doświadczenie kulinarne..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="burgershot_motivation">
+                <i class="fas fa-heart"></i>
+                Dlaczego chcesz pracować w Burgershot?
+              </label>
+              <textarea id="burgershot_motivation" name="burgershot_motivation" rows="3" placeholder="Opisz swoją motywację do pracy w Burgershot..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="burgershot_customer_service">
+                <i class="fas fa-users"></i>
+                Jak podchodzisz do obsługi klientów?
+              </label>
+              <textarea id="burgershot_customer_service" name="burgershot_customer_service" rows="3" placeholder="Opisz swoje podejście do obsługi klientów..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="burgershot_stress_handling">
+                <i class="fas fa-tachometer-alt"></i>
+                Jak radzisz sobie z pracą pod presją w godzinach szczytu?
+              </label>
+              <textarea id="burgershot_stress_handling" name="burgershot_stress_handling" rows="3" placeholder="Opisz jak radzisz sobie z presją..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="burgershot_availability">
+                <i class="fas fa-clock"></i>
+                Ile godzin dziennie możesz pracować?
+              </label>
+              <input type="number" id="burgershot_availability" name="burgershot_availability" min="2" max="12" placeholder="Liczba godzin dziennie">
+            </div>
+
+            <div class="form-group">
+              <label for="burgershot_shift_preference">
+                <i class="fas fa-calendar-alt"></i>
+                Preferowana zmiana
+              </label>
+              <select id="burgershot_shift_preference" name="burgershot_shift_preference">
+                <option value="">Wybierz preferowaną zmianę</option>
+                <option value="morning">Poranna (6:00 - 14:00)</option>
+                <option value="afternoon">Popołudniowa (14:00 - 22:00)</option>
+                <option value="night">Nocna (22:00 - 6:00)</option>
+                <option value="flexible">Elastyczna</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ===== PYTANIA DLA ORGANIZACJI PRZESTĘPCZYCH ===== -->
+          <div id="questionsCrime" class="questions-container" style="display: none;">
+            <div class="form-group">
+              <label for="crime_character_name">
+                <i class="fas fa-user-secret"></i>
+                Nazwa twojej postaci w grze
+              </label>
+              <input type="text" id="crime_character_name" name="crime_character_name" placeholder="Wprowadź nazwę swojej postaci">
+            </div>
+
+            <div class="form-group">
+              <label for="crime_rp_experience">
+                <i class="fas fa-mask"></i>
+                Opisz swoje doświadczenie w roleplay przestępczym
+              </label>
+              <textarea id="crime_rp_experience" name="crime_rp_experience" rows="4" placeholder="Opisz swoje doświadczenie w graniu przestępców..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="crime_motivation">
+                <i class="fas fa-fire"></i>
+                Dlaczego chcesz dołączyć do organizacji przestępczej?
+              </label>
+              <textarea id="crime_motivation" name="crime_motivation" rows="4" placeholder="Opisz swoją motywację..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="crime_specialty">
+                <i class="fas fa-user-ninja"></i>
+                Jaka jest twoja specjalizacja?
+              </label>
+              <select id="crime_specialty" name="crime_specialty">
+                <option value="">Wybierz swoją specjalizację</option>
+                <option value="muscle">Siłacz/Ochrona</option>
+                <option value="driver">Kierowca/Pilot ucieczki</option>
+                <option value="hacker">Haker/Specjalista IT</option>
+                <option value="negotiator">Negocjator/Dyplomata</option>
+                <option value="strategist">Strategik/Planista</option>
+                <option value="business">Biznesmen/Pranie pieniędzy</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="crime_availability">
+                <i class="fas fa-clock"></i>
+                Ile godzin dziennie możesz poświęcić na działalność?
+              </label>
+              <input type="number" id="crime_availability" name="crime_availability" min="2" max="12" placeholder="Liczba godzin dziennie">
+            </div>
+
+            <div class="form-group">
+              <label for="crime_loyalty">
+                <i class="fas fa-handshake"></i>
+                Jak rozumiesz pojęcie lojalności w organizacji przestępczej?
+              </label>
+              <textarea id="crime_loyalty" name="crime_loyalty" rows="3" placeholder="Opisz swoje podejście do lojalności..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="crime_conflict">
+                <i class="fas fa-fist-raised"></i>
+                Jak radzisz sobie w sytuacjach konfliktowych?
+              </label>
+              <textarea id="crime_conflict" name="crime_conflict" rows="3" placeholder="Opisz swoje podejście do konfliktów..."></textarea>
+            </div>
+          </div>
+
+          <!-- ===== PYTANIA DLA ADMINISTRACJI ===== -->
+          <div id="questionsAdmin" class="questions-container" style="display: none;">
+            <div class="form-group">
+              <label for="admin_first_name">
+                <i class="fas fa-id-card"></i>
+                Jak masz na imię?
+              </label>
+              <input type="text" id="admin_first_name" name="admin_first_name" placeholder="Wprowadź swoje imię">
+            </div>
+
+            <div class="form-group">
+              <label for="admin_age">
+                <i class="fas fa-calendar-alt"></i>
+                Ile masz lat?
+              </label>
+              <input type="number" id="admin_age" name="admin_age" min="16" max="80" placeholder="Wprowadź swój wiek">
+            </div>
+            
+            <div class="form-group">
+              <label for="admin_rp_experience">
+                <i class="fas fa-gamepad"></i>
+                Opisz swoje doświadczenie w roleplay i administrowaniu serwerów
+              </label>
+              <textarea id="admin_rp_experience" name="admin_rp_experience" rows="5" placeholder="Opisz swoje doświadczenie w RP i administrowaniu..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="admin_motivation">
+                <i class="fas fa-heart"></i>
+                Dlaczego chcesz zostać administratorem Lucky Roleplay?
+              </label>
+              <textarea id="admin_motivation" name="admin_motivation" rows="4" placeholder="Opisz swoją motywację do zostania administratorem..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="admin_time_availability">
+                <i class="fas fa-clock"></i>
+                Ile godzin dziennie możesz poświęcić na administrowanie?
+              </label>
+              <input type="number" id="admin_time_availability" name="admin_time_availability" min="2" max="16" placeholder="Liczba godzin dziennie">
+            </div>
+
+            <div class="form-group">
+              <label for="admin_conflict_resolution">
+                <i class="fas fa-balance-scale"></i>
+                Jak rozwiązałbyś konflikt między dwoma graczami?
+              </label>
+              <textarea id="admin_conflict_resolution" name="admin_conflict_resolution" rows="4" placeholder="Opisz swoje podejście do rozwiązywania konfliktów..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="admin_rule_knowledge">
+                <i class="fas fa-book"></i>
+                Oceń swoją znajomość regulaminu serwera (1-10)
+              </label>
+              <input type="number" id="admin_rule_knowledge" name="admin_rule_knowledge" min="1" max="10" placeholder="Oceń od 1 do 10">
+            </div>
+
+            <div class="form-group">
+              <label for="admin_previous">
+                <i class="fas fa-history"></i>
+                Czy wcześniej byłeś administratorem? Jeśli tak, gdzie?
+              </label>
+              <textarea id="admin_previous" name="admin_previous" rows="2" placeholder="Opisz swoje poprzednie doświadczenie administracyjne..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="modern-submit-btn" id="submitButton">
+              <i class="fas fa-paper-plane"></i>
+              Złóż podanie
+            </button>
+          </div>
+
+          <div id="applicationError" class="form-error-msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    console.log('JavaScript ładuje się...');
+    
+    // Sprawdź czy auth.js załadował się poprawnie
+    if (typeof checkAuthStatus === 'function') {
+      console.log('auth.js załadowane poprawnie');
+    } else {
+      console.error('auth.js nie załadowane lub brak funkcji checkAuthStatus');
+    }
+    
+    // Konfiguracja organizacji - dodaj Burgershot
+    const organizations = {
+      'LSPD': {
+        name: 'Los Santos Police Department',
+        logo: 'images/lspd.png'
+      },
+      'EMS': {
+        name: 'Emergency Medical Services',
+        logo: 'images/ems.jpg'
+      },
+      'Skyline': {
+        name: 'Skyline Customs',
+        logo: 'images/lsc.jpg'
+      },
+      'Burgershot': {
+        name: 'Burgershot',
+        logo: 'images/burgershot.png'
+      },
+      'Crime': {
+        name: 'Organizacje przestępcze',
+        logo: 'images/crime.png'
+      },
+      'Admin': {
+        name: 'Administracja',
+        logo: 'images/staff.png'
+      }
+    };
+
+    let userDiscordId = '';
+    let currentOrganization = '';
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log('DOM załadowany, rozpoczynam inicjalizację formularza');
+      
+      try {
+        // Sprawdź czy użytkownik jest zalogowany
+        console.log('Sprawdzanie autoryzacji...');
+        const authData = await checkAuthStatus();
+        console.log('Dane autoryzacji:', authData);
+        
+        if (!authData.loggedIn) {
+          console.log('Użytkownik nie jest zalogowany, przekierowanie na login.html');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        // Pobierz parametr organizacji z URL
+        const urlParams = new URLSearchParams(window.location.search);
+        currentOrganization = urlParams.get('org');
+        console.log('Wybrana organizacja:', currentOrganization);
+        
+        if (!currentOrganization || !organizations[currentOrganization]) {
+          console.log('Nieprawidłowa organizacja, przekierowanie na podania.html');
+          window.location.href = 'podania.html';
+          return;
+        }
+
+        const orgInfo = organizations[currentOrganization];
+        console.log('Informacje o organizacji:', orgInfo);
+
+      // Sprawdź czy użytkownik może złożyć podanie dla tej organizacji
+      try {
+        const availabilityResponse = await fetch(`/api/check-application-availability/${currentOrganization}`);
+        const availabilityData = await availabilityResponse.json();
+
+        if (!availabilityData.canApply) {
+          showCannotApplyMessage(orgInfo, availabilityData);
+          return;
+        }
+      } catch (error) {
+        console.error('Błąd sprawdzania dostępności:', error);
+      }
+
+      // Pobierz dane użytkownika wraz z Discord ID
+      try {
+        const userResponse = await fetch('/api/user-info');
+        const userData = await userResponse.json();
+        
+        if (userData.success) {
+          userDiscordId = userData.discord;
+          document.getElementById('userDiscord').textContent = userData.discord;
+        } else {
+          document.getElementById('userDiscord').textContent = 'Błąd pobierania';
+        }
+      } catch (error) {
+        document.getElementById('userDiscord').textContent = 'Błąd połączenia';
+      }
+
+      // Pokaż formularz i ustaw informacje o organizacji
+      showApplicationForm(orgInfo);
+
+      // Dodaj obsługę formularza po pokazaniu formularza
+      setTimeout(() => {
+        setupFormHandler();
+      }, 100);
+      
+      } catch (error) {
+        console.error('Błąd podczas inicjalizacji formularza:', error);
+        alert('Wystąpił błąd podczas ładowania formularza: ' + error.message);
+      }
+    });
+
+    function setupFormHandler() {
+      // Obsługa formularza
+      const form = document.getElementById('applicationForm');
+      console.log('Formularz znaleziony:', form);
+      
+      if (form) {
+        console.log('Dodawanie event listenera do formularza');
+        form.addEventListener('submit', async function(e) {
+          console.log('Event submit wywołany');
+          e.preventDefault();
+          
+          const submitButton = document.getElementById('submitButton');
+          console.log('Przycisk submit znaleziony:', submitButton);
+          
+          if (!submitButton) {
+            console.error('Nie znaleziono przycisku submit');
+            return;
+          }
+          
+          const originalText = submitButton.textContent;
+          
+          // Pokaż loading
+          submitButton.textContent = 'Składanie podania...';
+          submitButton.disabled = true;
+          
+          // Zbierz dane podstawowe
+          const formData = {
+            organization: currentOrganization,
+            discord_contact: userDiscordId,
+            answers: collectAnswers()
+          };
+
+          console.log('Dane do wysłania:', formData);
+          
+          const errorMsg = document.getElementById('applicationError');
+          errorMsg.style.display = 'none';
+          
+          // Walidacja danych
+          if (!formData.organization) {
+            errorMsg.textContent = 'Błąd: brak informacji o organizacji';
+            errorMsg.style.display = 'block';
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            return;
+          }
+          
+          if (!formData.discord_contact) {
+            errorMsg.textContent = 'Błąd: brak Discord ID. Spróbuj odświeżyć stronę.';
+            errorMsg.style.display = 'block';
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            return;
+          }
+          
+          if (!formData.answers || Object.keys(formData.answers).length === 0) {
+            errorMsg.textContent = 'Błąd: brak odpowiedzi na pytania';
+            errorMsg.style.display = 'block';
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            return;
+          }
+          
+          try {
+            console.log('Wysyłanie żądania do serwera...');
+            const response = await fetch('/api/submit-application', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData)
+            });
+            
+            console.log('Otrzymano odpowiedź:', response.status);
+            const data = await response.json();
+            console.log('Dane odpowiedzi:', data);
+            
+            if (data.success) {
+              showSuccessModal();
+            } else {
+              errorMsg.textContent = data.message;
+              errorMsg.style.display = 'block';
+              
+              submitButton.textContent = originalText;
+              submitButton.disabled = false;
+            }
+          } catch (error) {
+            errorMsg.textContent = 'Błąd połączenia z serwerem';
+            errorMsg.style.display = 'block';
+            
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+          }
+        });
+      }
+    }
+
+    function collectAnswers() {
+      const answers = {};
+      
+      try {
+        // Dla administracji nie zbieraj podstawowych danych (imię i wiek są w pytaniach)
+        if (currentOrganization !== 'Admin') {
+          const fullNameInput = document.getElementById('fullName');
+          const ageInput = document.getElementById('age');
+          
+          if (fullNameInput) answers.full_name = fullNameInput.value;
+          if (ageInput) answers.age = ageInput.value;
+        }
+        
+        // Zbierz odpowiedzi dla aktualnej organizacji
+        const questionsDiv = document.getElementById(`questions${currentOrganization}`);
+        if (questionsDiv) {
+          const inputs = questionsDiv.querySelectorAll('input, textarea, select');
+          inputs.forEach(input => {
+            if (input.name) {
+              answers[input.name] = input.value;
+            }
+          });
+        }
+        
+        console.log('Zebrane odpowiedzi:', answers);
+        return answers;
+      } catch (error) {
+        console.error('Błąd podczas zbierania odpowiedzi:', error);
+        return {};
+      }
+    }
+
+    function showCannotApplyMessage(orgInfo, availabilityData) {
+      document.getElementById('orgLogoError').src = orgInfo.logo;
+      document.getElementById('orgTitleError').textContent = `Podanie - ${orgInfo.name}`;
+      
+      const statusText = availabilityData.existingStatus === 'pending' ? 'oczekujące na rozpatrzenie' : 'zaakceptowane';
+      const date = new Date(availabilityData.appliedDate).toLocaleDateString('pl-PL');
+      
+      document.getElementById('cannotApplyReason').innerHTML = `
+        <strong>Masz już ${statusText} podanie dla tej organizacji.</strong><br><br>
+        Data złożenia: ${date}<br><br>
+        Możesz złożyć nowe podanie dopiero po odrzuceniu poprzedniego przez administratora.
+      `;
+      
+      document.getElementById('cannotApplyContainer').style.display = 'block';
+      document.title = `Podanie niemożliwe - ${orgInfo.name}`;
+    }
+
+    function showApplicationForm(orgInfo) {
+      document.getElementById('orgLogo').src = orgInfo.logo;
+      document.getElementById('orgTitle').textContent = `Podanie do: ${orgInfo.name}`;
+      document.title = `Podanie - ${orgInfo.name}`;
+      
+      // Ukryj wszystkie sekcje pytań
+      const allQuestionsContainers = document.querySelectorAll('.questions-container');
+      allQuestionsContainers.forEach(container => {
+        container.style.display = 'none';
+        // Usuń required ze wszystkich pól w ukrytych sekcjach
+        const inputs = container.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+          input.required = false;
+        });
+      });
+      
+      // Dla administracji ukryj podstawowe pola (imię i wiek są w pytaniach Admin)
+      const fullNameGroup = document.getElementById('fullName')?.closest('.form-group');
+      const ageGroup = document.getElementById('age')?.closest('.form-group');
+      
+      if (currentOrganization === 'Admin') {
+        if (fullNameGroup) fullNameGroup.style.display = 'none';
+        if (ageGroup) ageGroup.style.display = 'none';
+        // Usuń required z podstawowych pól dla Admin
+        const fullNameInput = document.getElementById('fullName');
+        const ageInput = document.getElementById('age');
+        if (fullNameInput) fullNameInput.required = false;
+        if (ageInput) ageInput.required = false;
+      } else {
+        if (fullNameGroup) fullNameGroup.style.display = 'block';
+        if (ageGroup) ageGroup.style.display = 'block';
+        // Dodaj required do podstawowych pól dla innych organizacji
+        const fullNameInput = document.getElementById('fullName');
+        const ageInput = document.getElementById('age');
+        if (fullNameInput) fullNameInput.required = true;
+        if (ageInput) ageInput.required = true;
+      }
+      
+      // Pokaż odpowiednią sekcję pytań dla tej organizacji
+      const questionsDiv = document.getElementById(`questions${currentOrganization}`);
+      console.log(`Sekcja pytań dla ${currentOrganization}:`, questionsDiv);
+      
+      if (questionsDiv) {
+        questionsDiv.style.display = 'block';
+        
+        // Ustaw required dla pól tej organizacji
+        const inputs = questionsDiv.querySelectorAll('input[type="text"], input[type="number"], textarea, select');
+        console.log(`Znalezione pola w sekcji ${currentOrganization}:`, inputs.length);
+        
+        inputs.forEach(input => {
+          // Nie dodawaj required dla pól opcjonalnych
+          if (!input.name.includes('additional') && !input.name.includes('previous')) {
+            input.required = true;
+            console.log(`Dodano required do pola: ${input.name}`);
+          }
+        });
+      } else {
+        console.error(`Nie znaleziono sekcji pytań dla organizacji: ${currentOrganization}`);
+      }
+      
+      const applicationContainer = document.getElementById('applicationContainer');
+      console.log('Kontener aplikacji:', applicationContainer);
+      applicationContainer.style.display = 'block';
+    }
+
+    function showSuccessModal() {
+      const modal = document.getElementById('modernSuccessModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.style.opacity = '1';
+      }
+    }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById('modernSuccessModal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.style.opacity = '0';
+      }
+      window.location.href = 'podania.html';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modernSuccessModal');
+      if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
+        closeSuccessModal();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="author" content="mojo jojo"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" href="images/logolucky.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Lucky Roleplay - Regulamin</title>
+</head>
+<body>
+  <!-- Modern Navigation Bar -->
+  <nav class="modern-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="images/logolucky.png" alt="Lucky RP Logo" class="nav-logo">
+        <span class="brand-text">Lucky<span class="brand-accent">RP</span></span>
+      </div>
+      
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Strona główna</span>
+        </a>
+        <a href="regulamin.html" class="nav-link active">
+          <i class="fas fa-scroll"></i>
+          <span>Regulamin</span>
+        </a>
+        <a href="podania.html" class="nav-link">
+          <i class="fas fa-file-alt"></i>
+          <span>Podania</span>
+        </a>
+      </div>
+      
+      <div class="nav-user">
+        <div class="user-menu modern-user-menu">
+          <div class="user-avatar-container">
+            <img src="images/user-icon.png" alt="Profil" class="user-avatar modern-avatar" id="userAvatar">
+            <div class="status-indicator"></div>
+          </div>
+          <div class="user-dropdown modern-dropdown" id="modernUserDropdown">
+            <button onclick="window.location.href='login.html'">
+              <i class="fas fa-sign-in-alt"></i>
+              Zaloguj się
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Rules Header Section -->
+  <section class="rules-header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="page-title">
+          <i class="fas fa-scroll"></i>
+          Regulamin <span class="title-highlight">Serwera</span>
+        </h1>
+        <p class="page-description">
+          Zapoznaj się z zasadami obowiązującymi na serwerze Lucky Roleplay i przestrzegaj ich podczas gry
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin Edit Panel -->
+  <div id="adminEditPanel" class="admin-edit-panel-wrapper" style="display: none;">
+    <div class="container">
+      <div class="admin-edit-panel">
+        <div class="edit-panel-header">
+          <h3><i class="fas fa-edit"></i> Panel edycji regulaminu</h3>
+          <div class="edit-actions">
+            <button id="saveRules" class="btn-primary">
+              <i class="fas fa-save"></i> Zapisz zmiany
+            </button>
+            <button id="cancelEdit" class="btn-secondary">
+              <i class="fas fa-times"></i> Anuluj
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules Content -->
+  <section class="rules-main-section">
+    <div class="container">
+      <div class="rules-container">
+        <!-- Admin Edit Button -->
+        <div id="adminControls" class="admin-controls" style="display: none;">
+          <button id="editRules" class="edit-button">
+            <i class="fas fa-edit"></i>
+            Edytuj regulamin
+          </button>
+        </div>
+
+        <!-- Rules Content -->
+        <div id="rulesContent" class="rules-content">
+          <div class="rules-header">
+            <h1 class="rules-title">
+              <i class="fas fa-scroll"></i>
+              Regulamin Serwera
+            </h1>
+            <p class="rules-subtitle">Lucky Roleplay - Zasady i przepisy</p>
+          </div>
+          
+          <div class="rule-section">
+            <h2><i class="fas fa-gavel"></i> §1. Postanowienia ogólne</h2>
+            <ol>
+              <li>Niniejszy regulamin określa zasady gry na serwerze Lucky Roleplay.</li>
+              <li>Każdy gracz zobowiązany jest do przestrzegania regulaminu.</li>
+              <li>Nieznajomość regulaminu nie zwalnia z jego przestrzegania.</li>
+              <li>Administracja zastrzega sobie prawo do zmiany regulaminu bez wcześniejszego powiadomienia.</li>
+              <li>Za złamanie regulaminu grożą kary od ostrzeżenia po permanentną blokadę konta.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-user-check"></i> §2. Zasady roleplay</h2>
+            <ol>
+              <li>Na serwerze obowiązuje roleplay 24/7 - każda postać musi być grana zgodnie z jej charakterem.</li>
+              <li>Zabronione jest łamanie immersji (breaking character) w strefach IC (In Character).</li>
+              <li>Każda postać musi mieć realistyczną historię i motywacje.</li>
+              <li>Zabronione jest wykorzystywanie informacji uzyskanych poza grą (metagaming).</li>
+              <li>Powergaming (wymuszanie akcji na innych graczach) jest zabronione.</li>
+              <li>Należy zawsze szanować immersję innych graczy.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-comments"></i> §3. Komunikacja</h2>
+            <ol>
+              <li>Na czacie globalnym obowiązuje kultura wypowiedzi.</li>
+              <li>Zabronione jest używanie wulgaryzmów, treści obraźliwych lub dyskryminujących.</li>
+              <li>Spam na czacie jest karany blokadą czatu lub konta.</li>
+              <li>Czat OOC służy tylko do komunikacji poza grą - nie nadużywaj go.</li>
+              <li>W komunikacji głosowej obowiązują te same zasady co na czacie.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-shield-alt"></i> §4. Bezpieczeństwo</h2>
+            <ol>
+              <li>Zabronione jest używanie cheatów, modów lub zewnętrznych programów dających przewagę.</li>
+              <li>Exploitowanie błędów gry jest zabronione i karane.</li>
+              <li>Nie wolno udostępniać kont innym osobom.</li>
+              <li>Zabronione jest próby włamania na konta innych graczy.</li>
+              <li>DDoS lub inne ataki na serwer są karane permanentną blokadą.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-car"></i> §5. Pojazdy i ruch drogowy</h2>
+            <ol>
+              <li>Należy przestrzegać kodeksu ruchu drogowego obowiązującego w grze.</li>
+              <li>VDM (Vehicle Death Match) - zabijanie pojazdami bez powodu RP jest zabronione.</li>
+              <li>Kradzież pojazdów musi być uzasadniona roleplayowo.</li>
+              <li>Zabronione jest zostawianie pojazdów w miejscach blokujących ruch.</li>
+              <li>Niszczenie pojazdów bez powodu jest karane.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-fist-raised"></i> §6. Walka i przemoc</h2>
+            <ol>
+              <li>RDM (Random Death Match) - zabijanie bez powodu RP jest zabronione.</li>
+              <li>Każda walka musi być uzasadniona roleplayowo.</li>
+              <li>Zabronione jest revenge killing (powrót po śmierci w celu zemsty).</li>
+              <li>New life rule - po śmierci tracisz pamięć z ostatnich 15 minut życia.</li>
+              <li>Combat logging (wyjście z gry podczas walki) jest karane.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-handshake"></i> §7. Zachowanie społeczne</h2>
+            <ol>
+              <li>Szanuj innych graczy i ich czas spędzony na serwerze.</li>
+              <li>Pomóż nowym graczom w nauce zasad serwera.</li>
+              <li>Zgłaszaj naruszenia regulaminu do administracji.</li>
+              <li>Bądź fair play - graj dla zabawy, nie tylko dla wygranej.</li>
+              <li>Pamiętaj, że za każdą postacią jest prawdziwa osoba.</li>
+            </ol>
+          </div>
+
+          <div class="rule-section">
+            <h2><i class="fas fa-gavel"></i> §8. Kary i apelacje</h2>
+            <ol>
+              <li>Kary są nakładane w zależności od powagi przewinienia.</li>
+              <li>Możliwe kary to: ostrzeżenie, jail, ban czasowy, ban permanentny.</li>
+              <li>Od każdej kary można się odwołać przez system apelacji.</li>
+              <li>Apelacje są rozpatrywane przez administrację w ciągu 7 dni.</li>
+              <li>Fałszywe zgłoszenia innych graczy są karane.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Edit Mode Content -->
+        <div id="rulesEditor" class="rules-editor" style="display: none;">
+          <textarea id="rulesTextarea" class="rules-textarea"></textarea>
+        </div>
+
+        <div class="rules-footer">
+          <p><strong>Ostatnia aktualizacja:</strong> <span id="lastUpdate">5 sierpnia 2025</span></p>
+          <p><em>Administracja Lucky Roleplay zastrzega sobie prawo do interpretacji regulaminu.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wspólny plik autoryzacji -->
+  <script src="auth.js"></script>
+
+  <!-- Rules Management Script -->
+  <script>
+    let isAdmin = false;
+    let originalContent = '';
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Check admin status
+      const authData = await checkAuthStatus();
+      if (authData.loggedIn && authData.role === 'admin') {
+        isAdmin = true;
+        document.getElementById('adminControls').style.display = 'block';
+      }
+
+      // Load rules content
+      await loadRulesContent();
+
+      // Mobile menu toggle
+      const mobileToggle = document.getElementById('mobileMenuToggle');
+      const navLinks = document.querySelector('.nav-links');
+      
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('mobile-active');
+          mobileToggle.classList.toggle('active');
+        });
+      }
+
+      // Edit rules button
+      document.getElementById('editRules').addEventListener('click', enterEditMode);
+      document.getElementById('saveRules').addEventListener('click', saveRules);
+      document.getElementById('cancelEdit').addEventListener('click', exitEditMode);
+    });
+
+    // Load rules content from server
+    async function loadRulesContent() {
+      try {
+        console.log('Ładowanie regulaminu z serwera...');
+        
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 sekund timeout
+        
+        const response = await fetch('/api/rules', {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Odpowiedź serwera:', data);
+        
+        if (data.success && data.content) {
+          document.getElementById('rulesContent').innerHTML = data.content;
+          document.getElementById('lastUpdate').textContent = new Date(data.lastUpdate).toLocaleDateString('pl-PL');
+          console.log('Regulamin załadowany z bazy danych');
+        } else {
+          console.log('Używanie domyślnej treści regulaminu');
+        }
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          console.error('Timeout - zbyt długie oczekiwanie na odpowiedź serwera');
+        } else {
+          console.error('Błąd ładowania regulaminu:', error);
+        }
+        console.log('Używanie domyślnej treści regulaminu');
+      }
+    }
+
+    // Enter edit mode
+    function enterEditMode() {
+      if (!isAdmin) return;
+
+      // Get current HTML content
+      originalContent = document.getElementById('rulesContent').innerHTML;
+      const textarea = document.getElementById('rulesTextarea');
+      
+      // Set textarea value to current content
+      textarea.value = originalContent;
+
+      // Switch to edit mode
+      document.getElementById('rulesContent').style.display = 'none';
+      document.getElementById('rulesEditor').style.display = 'block';
+      document.getElementById('adminEditPanel').style.display = 'block';
+      document.getElementById('adminControls').style.display = 'none';
+      
+      console.log('Weszli w tryb edycji, długość treści:', originalContent.length);
+    }
+
+    // Exit edit mode
+    function exitEditMode() {
+      document.getElementById('rulesContent').style.display = 'block';
+      document.getElementById('rulesEditor').style.display = 'none';
+      document.getElementById('adminEditPanel').style.display = 'none';
+      document.getElementById('adminControls').style.display = 'block';
+      
+      // Restore original content
+      document.getElementById('rulesContent').innerHTML = originalContent;
+    }
+
+    // Save rules changes
+    async function saveRules() {
+      if (!isAdmin) return;
+
+      const content = document.getElementById('rulesTextarea').value;
+      
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 sekund timeout
+        
+        const response = await fetch('/api/rules', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            content: content 
+          }),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.success) {
+          document.getElementById('rulesContent').innerHTML = content;
+          document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('pl-PL');
+          exitEditMode();
+          
+          // Show success message
+          showNotification('Regulamin został zaktualizowany pomyślnie! Strona zostanie odświeżona...', 'success');
+          
+          // Automatyczne odświeżenie strony po 2 sekundach
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          showNotification(data.message || 'Błąd podczas zapisywania regulaminu.', 'error');
+        }
+      } catch (error) {
+        console.error('Error saving rules:', error);
+        if (error.name === 'AbortError') {
+          showNotification('Timeout - zbyt długie oczekiwanie na odpowiedź serwera', 'error');
+        } else {
+          showNotification('Błąd połączenia z serwerem: ' + error.message, 'error');
+        }
+      }
+    }
+
+    // Show notification
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
+
+  <style>
+    /* CSS Variables from main style.css */
+    :root {
+      --primary-color: #00d4ff;
+      --primary-gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      --bg-dark: #0a0a0a;
+      --bg-dark-secondary: #1a1a1a;
+      --bg-card: rgba(26, 26, 26, 0.95);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+    }
+    
+    /* Rules specific styles */
+    
+    /* Wyłączenie przewijania poziomego */
+    body {
+      overflow-x: hidden;
+    }
+    
+    html {
+      overflow-x: hidden;
+    }
+    
+    /* Rules Header - styl jak w podaniach */
+    .rules-header {
+      padding: 120px 0 60px;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
+      position: relative;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .rules-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('images/background.jpg') center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .page-title i {
+      color: var(--primary-color);
+      font-size: 0.8em;
+    }
+
+    .title-highlight {
+      color: var(--primary-color);
+    }
+
+    .page-description {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Rules Main Section - czarne tło jak w podaniach */
+    .rules-main-section {
+      padding: 80px 0 120px;
+      background: var(--bg-dark);
+      font-family: 'Inter', sans-serif;
+      min-height: 60vh;
+    }
+
+    .rules-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+      max-width: 1000px;
+      margin: 0 auto;
+      overflow-x: hidden;
+      word-wrap: break-word;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .rules-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gradient);
+      border-radius: 24px 24px 0 0;
+      z-index: 1;
+    }
+
+    .rules-container:hover {
+      box-shadow: 0 25px 80px rgba(0, 212, 255, 0.15);
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .admin-controls {
+      text-align: right;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .edit-button {
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+    }
+
+    .edit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    }
+
+    .admin-edit-panel-wrapper {
+      background: var(--bg-dark);
+      padding: 40px 0;
+    }
+
+    .admin-edit-panel {
+      background: var(--bg-card);
+      border: 2px solid var(--primary-color);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 1000px;
+      box-shadow: 0 10px 40px rgba(0, 212, 255, 0.1);
+    }
+
+    .edit-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .edit-panel-header h3 {
+      color: var(--primary-color);
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #28a745;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #218838;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    .rules-content h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 30px 0 15px;
+      padding: 15px 0;
+      border-bottom: 3px solid var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-shadow: 0 2px 10px rgba(0, 212, 255, 0.2);
+    }
+
+    .rules-content h2 i {
+      color: var(--primary-color);
+    }
+
+    .rules-header {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .rules-title {
+      color: var(--primary-color);
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .rules-title i {
+      color: var(--primary-color);
+      font-size: 0.8em;
+    }
+
+    .rules-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .rule-section {
+      margin-bottom: 40px;
+    }
+
+    .rule-section ol {
+      padding-left: 20px;
+    }
+
+    .rule-section li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+      color: #e0e6ed;
+    }
+
+    .rules-editor {
+      margin: 20px 0;
+    }
+
+    .rules-textarea {
+      width: 100%;
+      min-height: 600px;
+      padding: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      resize: vertical;
+      box-sizing: border-box;
+      max-width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      color: #e0e6ed;
+    }
+
+    .rules-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
+
+    .rules-footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border-color);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 300px;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      border-left: 4px solid #28a745;
+      color: #28a745;
+    }
+
+    .notification.error {
+      border-left: 4px solid #dc3545;
+      color: #dc3545;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .rules-container {
+        padding: 20px;
+        margin: 20px;
+      }
+
+      .edit-panel-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .edit-actions {
+        justify-content: center;
+      }
+    }
+  </style>
+</body>
+</html>
